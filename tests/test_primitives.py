@@ -1,7 +1,5 @@
 """Tests for BWSK primitive combinators."""
 
-import pytest
-
 from bwsk.primitives import B, K, S, W
 
 
@@ -25,7 +23,6 @@ def _identity(x):
 
 
 class TestB:
-    @pytest.mark.skip(reason="Not yet implemented")
     def test_composition(self):
         """B f g x = f(g(x))."""
         b = B(_inc, _double)
@@ -33,7 +30,6 @@ class TestB:
 
 
 class TestW:
-    @pytest.mark.skip(reason="Not yet implemented")
     def test_self_application(self):
         """W f x = f(x)(x)."""
         w = W(_add)
@@ -41,7 +37,6 @@ class TestW:
 
 
 class TestS:
-    @pytest.mark.skip(reason="Not yet implemented")
     def test_fan_out_combine(self):
         """S f g x = f(x)(g(x))."""
         s = S(_add, _double)
@@ -49,7 +44,6 @@ class TestS:
 
 
 class TestK:
-    @pytest.mark.skip(reason="Not yet implemented")
     def test_erasure(self):
         """K x y = x (y is discarded)."""
         k = K(_identity)

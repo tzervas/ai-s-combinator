@@ -1,7 +1,5 @@
 """Tests for provenance tracking."""
 
-import pytest
-
 from bwsk.provenance import ProvenanceGraph, ProvenanceNode, ProvenanceTracker
 
 
@@ -37,7 +35,6 @@ class TestProvenanceTracker:
         tracker = ProvenanceTracker()
         assert tracker.enabled is True
 
-    @pytest.mark.skip(reason="Not yet implemented")
     def test_track_records_event(self):
         tracker = ProvenanceTracker()
         tracker.track(op=None, inputs=None, output=None)

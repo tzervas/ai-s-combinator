@@ -1,0 +1,121 @@
+# Documentation Index
+
+> **This file is the master index of all project documentation.**
+> It must be kept current. When you create, rename, or delete a doc, update this index.
+> When you significantly change a doc's scope, update its description here.
+
+Last updated: 2026-03-01
+
+---
+
+## How to Use This Index
+
+**Starting a new session?** Read this file first to orient. Then read only what's relevant to your task.
+
+**Looking for something specific?** Use the cross-reference tables and "When to Read" guidance below.
+
+**Created or changed a doc?** Update this index before committing.
+
+---
+
+## Quick Lookup: What Do I Read For...?
+
+| I need to...                                    | Read these                                      |
+|-------------------------------------------------|-------------------------------------------------|
+| Understand the project vision                   | `CLAUDE.md`, `research/COMBINATOR_AI_FRAMEWORK.md` |
+| Implement the S/K classifier                    | `specs/SPEC_001_sk_classifier.md`, `research/TORCH_FX_RESEARCH.md` |
+| Implement BWSK primitives                       | `specs/SPEC_002_bwsk_primitives.md`             |
+| Implement provenance tracking                   | `specs/SPEC_003_provenance.md`                  |
+| Implement the architecture DSL                  | `specs/SPEC_004_architecture_dsl.md`            |
+| Plan the Rust port                              | `specs/SPEC_005_rust_port.md`                   |
+| Understand a design decision                    | `architecture/ADR_00N_*.md`                     |
+| Understand prior art and what's novel            | `research/PRIOR_ART_AND_CALM_RESEARCH.md`       |
+| Know the theoretical foundations                 | `research/DEEP_ANALYSIS_PURE_S.md`, `research/SYNTHESIS_REPORT.md` |
+| Know what acceptance criteria to hit             | `user-stories/US_NN_*.md`                       |
+| Know how to write code that passes CI            | `CLAUDE.md` > "Development Best Practices"      |
+| Pick up where the last session left off          | `CLAUDE.md` > "Continuation Plan"               |
+
+---
+
+## Specifications (`docs/specs/`)
+
+| File | Title | Phase | Status | Depends On | Key Contents |
+|------|-------|-------|--------|------------|--------------|
+| `SPEC_001_sk_classifier.md` | S/K Operation Classifier | 1 | **Implementing** | None | Classification database (70+ ops), algorithm pseudocode, edge cases, output format, test plan |
+| `SPEC_002_bwsk_primitives.md` | BWSK Primitive Implementations | 1-2 | Spec ready | SPEC-001 | B/W/S/K combinator rules, nn.Module wrapping, composition |
+| `SPEC_003_provenance.md` | Provenance Tracking System | 2 | Spec ready | SPEC-001, SPEC-002 | ProvenanceNode/Graph dataclasses, tracker hooks, output formats |
+| `SPEC_004_architecture_dsl.md` | Architecture DSL | 2 | Spec ready | SPEC-002 | `>>` operator, shape validation, compile to nn.Module |
+| `SPEC_005_rust_port.md` | Rust Port Strategy | 4 | Spec ready | SPEC-001..004 | bwsk-core + bwsk-burn crate structure, cross-validation |
+
+---
+
+## User Stories (`docs/user-stories/`)
+
+| File | Story | Phase | Status | Spec | Key Acceptance Criteria |
+|------|-------|-------|--------|------|------------------------|
+| `US_01_classifier_cli.md` | Classify Model via CLI | 1 | **Partially met** | SPEC-001 | CLI, JSON schema, programmatic API, error handling |
+| `US_02_compare_architectures.md` | Compare Architecture Erasure Budgets | 1 | Not started | SPEC-001 | Side-by-side comparison, `bwsk compare` command |
+| `US_03_compliance_audit.md` | Audit K-Boundaries for Compliance | 1 | Not started | SPEC-001 | Compliance document format, `bwsk audit` command |
+| `US_04_dsl_transformer.md` | Define Transformer Block in DSL | 2 | Not started | SPEC-002, SPEC-004 | DSL syntax, shape validation |
+| `US_05_composable_modules.md` | Compose Modules with Type-Checked Shapes | 2 | Not started | SPEC-004 | `>>` operator, shape mismatch errors |
+| `US_06_weight_sharing.md` | Express Weight Sharing with W | 2 | Not started | SPEC-002 | `W(block, depth=N)`, parameter tying |
+| `US_07_provenance_trace.md` | Trace Predictions Through S-Phases | 2 | Not started | SPEC-003 | Forward hooks, S-phase tracing |
+| `US_08_erasure_hotspots.md` | Identify Erasure Hotspots | 1-2 | Not started | SPEC-001, SPEC-003 | Ranked K-operations, S-type alternatives |
+| `US_09_regulatory_audit_trail.md` | Regulatory Audit Trail | 2 | Not started | SPEC-003 | HTML/PDF provenance export |
+| `US_10_memory_reduction.md` | Reduce Activation Memory | 3 | Not started | SPEC-004 | S-phase reversible backprop, 50%+ memory reduction |
+| `US_11_training_comparison.md` | Compare Training Memory Strategies | 3 | Not started | SPEC-004 | Benchmark vs standard/checkpointing/RevNet |
+| `US_12_calm_distributed.md` | CALM-Monotone Distributed Training | 3 | Not started | SPEC-004 | CRDT gradient accumulator, staleness parameter |
+| `US_13_calm_convergence.md` | CALM Convergence Analysis | 3 | Not started | SPEC-004 | Loss landscape, sharpness metrics |
+| `US_14_rust_bwsk.md` | Define Architecture in Rust | 4 | Not started | SPEC-005 | Rust BWSK API, Burn modules, CubeCL |
+| `US_15_single_binary.md` | Deploy as Single Binary | 4 | Not started | SPEC-005 | <50MB binary, <100ms startup |
+
+---
+
+## Architecture Decision Records (`docs/architecture/`)
+
+| File | Decision | Date | Status | Relevant To |
+|------|----------|------|--------|-------------|
+| `ADR_001_combinators_describe_tensors_compute.md` | Combinators as description language, not execution engine | 2026-03-01 | Accepted | All phases |
+| `ADR_002_python_first_rust_later.md` | Python Phases 1-3, Rust Phase 4 | 2026-03-01 | Accepted | All phases |
+| `ADR_003_torch_fx_for_tracing.md` | torch.fx symbolic tracing for graph extraction | 2026-02-28 | Accepted | Phase 1 (classifier) |
+| `ADR_004_classification_confidence_scoring.md` | 4-tier confidence: 1.0/0.8/0.5/0.3 | 2026-02-28 | Accepted | Phase 1 (classifier) |
+| `ADR_TEMPLATE.md` | Template for new ADRs | — | Template | — |
+
+**Next ADR number**: ADR-005
+
+---
+
+## Research Documents (`docs/research/`)
+
+| File | Topic | When to Read |
+|------|-------|-------------|
+| `COMBINATOR_AI_FRAMEWORK.md` | Full framework design: 5 innovations, S/K classification, hybrid architecture | Project orientation, vision discussions |
+| `BWSK_PROJECT_PLAN.md` | Requirements, deliverables, success criteria, timeline, risk register | Project planning, milestone tracking |
+| `DEEP_ANALYSIS_PURE_S.md` | Pure S computational class, substructural logic, {B,W} Turing-completeness | Theoretical questions, paper writing |
+| `SYNTHESIS_REPORT.md` | Research synthesis: what S can/cannot compute, AI connections | Theoretical questions, paper writing |
+| `TORCH_FX_RESEARCH.md` | torch.fx capabilities, limitations, Dynamo comparison, practical code patterns | Implementing classifier, graph tracing |
+| `PRIOR_ART_AND_CALM_RESEARCH.md` | Captum/FrEIA/RevNet prior art, CALM theorem formalization, gradient monotonicity gaps | Novelty claims, CALM training implementation |
+
+---
+
+## Source Code (`src/bwsk/`)
+
+| File | Purpose | Implementation Status | Tests | Spec |
+|------|---------|-----------------------|-------|------|
+| `__init__.py` | Package init, version | Done | — | — |
+| `classify.py` | S/K operation classifier | **Done**: classify_operation, classify_model, DB, torch.fx tracing, ErasureBudgetReport | 56 passing | SPEC-001 |
+| `primitives.py` | B, W, S, K combinators | **Stub**: raises NotImplementedError | 4 skipped | SPEC-002 |
+| `provenance.py` | Provenance tracking | **Partial**: dataclasses done, tracker.track() not implemented | 4 passing, 1 skipped | SPEC-003 |
+| `training.py` | BWSK-aware training loop | **Stub**: raises NotImplementedError | 2 skipped | — |
+
+---
+
+## Cross-Reference: Spec → Source → Tests → Stories
+
+| Spec | Source File | Test File | User Stories |
+|------|-----------|-----------|-------------|
+| SPEC-001 | `classify.py` | `test_classify.py` | US-01, US-02, US-03, US-08 |
+| SPEC-002 | `primitives.py` | `test_primitives.py` | US-04, US-05, US-06 |
+| SPEC-003 | `provenance.py` | `test_provenance.py` | US-07, US-08, US-09 |
+| SPEC-004 | *(not yet created)* | *(not yet created)* | US-04, US-05, US-10, US-11, US-12, US-13 |
+| SPEC-005 | `rust/bwsk-core/`, `rust/bwsk-burn/` | *(Rust tests)* | US-14, US-15 |

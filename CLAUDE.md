@@ -1,6 +1,8 @@
 # CLAUDE.md — BWSK Combinator AI Framework
 
 > **Read this file completely before taking any action.**
+>
+> **Documentation index**: See `docs/INDEX.md` for the master index of all docs, cross-references, and "what to read for any task" lookup table.
 
 ## Project Overview
 
@@ -112,6 +114,126 @@ rust/
 
 ---
 
+## Development Best Practices (Write Correct Code from the Start)
+
+These patterns prevent the most common lint/format/test failures. Follow them to avoid correction cycles.
+
+### Import Conventions (ruff I001, F401)
+- **Import order** (ruff isort): stdlib, then blank line, then third-party, then blank line, then first-party (`from bwsk...`). No blank lines within a group.
+- **Remove unused imports**: ruff flags F401 aggressively. If you import `torch` but only use `torch.nn as nn`, remove the bare `import torch`.
+- **Use `from __future__ import annotations`** in source modules for forward-reference support.
+- **First-party imports**: `from bwsk.classify import OpClass` (not relative imports).
+
+### Line Length (ruff E501)
+- **Max 100 characters** (configured in `pyproject.toml`). Break long strings:
+  ```python
+  # BAD (>100 chars on one line):
+  _register("nn.LayerNorm", OpClass.S, 0.95, "Per-sample normalization; invertible given affine params.")
+
+  # GOOD:
+  _register(
+      "nn.LayerNorm", OpClass.S, 0.95,
+      "Per-sample normalization; invertible given affine params.",
+  )
+  ```
+
+### Formatting (ruff format)
+- Always run `just format-fix` after writing code, or write code that already matches ruff's style.
+- Trailing commas on multiline structures (ruff will add them).
+- No trailing whitespace.
+- Single quotes vs double quotes: ruff uses double quotes by default.
+
+### Type Annotations
+- Use `collections.abc.Callable`, `collections.abc.Iterable` (not `typing.Callable`).
+- Use `X | None` union syntax (not `Optional[X]`).
+- Use `list[T]`, `dict[K, V]`, `tuple[T, ...]` lowercase generics (Python 3.12+).
+- Annotate all public function signatures. Private helpers can use `Any` when type is genuinely dynamic.
+
+### Test Patterns
+- Tests import from the public API: `from bwsk.classify import classify_operation, OpClass`
+- Test file names mirror source: `src/bwsk/classify.py` -> `tests/test_classify.py`
+- Use `pytest.approx()` for float comparisons, not `==`.
+- Use `@pytest.mark.skip(reason="...")` for unimplemented features — never `pass` with no assertion.
+- Test class names: `TestClassifyOperation`, `TestClassifyModel`, etc.
+- Each test method tests one thing. Name describes expected behavior: `test_relu_is_k_type`.
+
+### PyTorch-Specific Patterns
+- `torch` is an optional dependency. Import it inside functions if possible, or gate with `try/except ImportError`.
+- Use `torch.fx.symbolic_trace(model)` for graph extraction. Handle `TraceError` gracefully.
+- Classify by canonical module name (e.g., `"nn.ReLU"`, not `"torch.nn.modules.activation.ReLU"`).
+- When inspecting module attributes (stride, training), always use `getattr` with fallback or `isinstance` check.
+
+### Common Pitfalls to Avoid
+- Don't use `typing.Any` import alongside `from __future__ import annotations` — use `Any` from `typing` (this is fine with `from __future__`).
+- Don't use bare `assert` in production code — use exceptions. `assert` is only for tests.
+- Don't shadow built-in names (`type`, `id`, `input`, `list`). Use `op_type`, `node_id`, etc.
+- Don't use mutable default arguments (`def f(x=[])`). Use `None` + `if x is None: x = []`.
+
+---
+
+## Documentation Standards — MANDATORY
+
+**Undocumented code is incomplete code.** Every function, class, and module must have documentation that explains the "why", not just the "what".
+
+### Docstrings (Google Style, Required)
+
+Every public function, class, and module MUST have a Google-style docstring. Include:
+1. **Summary line**: What it does (one sentence).
+2. **Why it exists**: The reasoning behind this function/class. Why was this approach chosen? What problem does it solve?
+3. **Args/Returns/Raises**: Standard Google-style sections.
+
+```python
+def classify_operation(
+    op: nn.Module,
+    custom_rules: dict[str, OpClass] | None = None,
+) -> ClassificationResult:
+    """Classify a single nn.Module as S-type, K-type, or Gray.
+
+    This is the core classification primitive. It checks user overrides first
+    (allowing project-specific customization), then attribute-dependent refinement
+    (e.g., Conv stride, BatchNorm train/eval), then the default database, and
+    finally falls back to GRAY for unknown operations. This 4-step pipeline
+    ensures deterministic classification while remaining extensible.
+
+    Args:
+        op: The module to classify. Must be an nn.Module instance.
+        custom_rules: Optional dict mapping canonical op names (e.g., "nn.ReLU")
+            to OpClass overrides. Overrides always get confidence=1.0 because
+            the user has explicitly decided.
+
+    Returns:
+        A ClassificationResult with classification, confidence, and rationale.
+
+    Raises:
+        TypeError: If op is not an nn.Module.
+    """
+```
+
+### Documentation Maintenance Protocol
+
+**When you create, rename, move, or delete any file**, update these indexes:
+1. **`docs/INDEX.md`**: Master documentation index. Update the relevant table.
+2. **`CLAUDE.md`**: If it's a spec, ADR, research doc, or source file, update the relevant section.
+3. **Memory files**: Update `~/.claude/projects/.../memory/project-state.md` if implementation status changed.
+
+**When you make a design decision**, document the reasoning:
+1. **Non-trivial decisions**: Create an ADR in `docs/architecture/` (next number in `docs/INDEX.md`).
+2. **Minor decisions**: Add to memory file `decisions.md` with rationale.
+3. **In-code decisions**: Add a comment explaining "why", not "what". The code shows what; the comment explains why this approach was chosen over alternatives.
+
+### Spec and Story Documentation
+- Specs MUST include a "Why" or "Goal" section explaining the reasoning behind the feature.
+- User stories MUST have acceptance criteria that explain what "done" looks like and why each criterion matters.
+- ADRs MUST have "Alternatives Considered" explaining why other approaches were rejected — this is where the most valuable reasoning lives.
+
+### When to Update Documentation
+- **Before committing code**: Ensure docstrings are present on all new/changed public APIs.
+- **After implementing a feature**: Update the spec's status, the user story's checklist, and `docs/INDEX.md`.
+- **After making a design decision**: Document it (ADR or memory file).
+- **After creating a new file**: Add it to `docs/INDEX.md`.
+
+---
+
 ## Test-Driven Development — MANDATORY
 
 1. Write a failing test first
@@ -170,6 +292,8 @@ ADRs (Architecture Decision Records) documenting key design choices.
 |-----|----------|
 | ADR-001 | Combinators describe, tensors compute (not graph reduction runtime) |
 | ADR-002 | Python-first, Rust port later |
+| ADR-003 | torch.fx symbolic tracing for model graph extraction |
+| ADR-004 | Classification confidence scoring (4-tier: 1.0/0.8/0.5/0.3) |
 
 Use `docs/architecture/ADR_TEMPLATE.md` for new ADRs.
 
@@ -182,6 +306,8 @@ Background research documents from the S-combinator project.
 | `BWSK_PROJECT_PLAN.md` | Project plan: requirements, deliverables, success criteria, timeline |
 | `DEEP_ANALYSIS_PURE_S.md` | Pure S computational class, substructural logic, minimal extensions |
 | `SYNTHESIS_REPORT.md` | Research synthesis: what S can/cannot compute, AI connections |
+| `TORCH_FX_RESEARCH.md` | torch.fx capabilities, limitations, Dynamo comparison, practical patterns |
+| `PRIOR_ART_AND_CALM_RESEARCH.md` | Captum/FrEIA/RevNet analysis, CALM theorem formalization, gradient monotonicity |
 
 ---
 
@@ -206,7 +332,91 @@ Background research documents from the S-combinator project.
 | 4 | Rust Crate + Burn Integration | Rust, CubeCL | 8-12 weeks |
 | 5 | Erasure-Minimized NAS | Python | 12+ weeks |
 
-**Current status**: Phase 1 ready to begin. All specs, user stories, and test stubs in place.
+**Current status**: Phase 1 in progress. S/K Classifier core implementation complete (classify_operation, classify_model, classification database with 70+ operations, torch.fx tracing, erasure budget report, JSON serialization). 56 tests passing. See ADR-003 (torch.fx) and ADR-004 (confidence scoring) for design decisions.
+
+---
+
+## Continuation Plan (for "continue" prompt)
+
+When the user says **"continue"**, execute the remaining work autonomously in order. Run `just ci` before any commit. Ask only on genuine ambiguities.
+
+### Phase 1 Remaining Work (S/K Classifier — finish it)
+
+**1.0 Docstring audit on existing classify.py code**
+- Add/improve Google-style docstrings on ALL public and private functions in `src/bwsk/classify.py`
+- Each docstring must explain "why" (rationale for the approach), not just "what"
+- Include Args/Returns/Raises sections on all public functions
+- Add module-level docstring explaining the 4-step classification pipeline and why it's structured that way
+
+**1.1 Implement `per_layer_summary()` on ErasureBudgetReport**
+- Group `per_node` results by layer prefix (e.g., `"transformer.h.0"`)
+- Return `dict[str, dict]` with `{s_count, k_count, gray_count, erasure_score}` per group
+- Add test in `TestSerialization`
+
+**1.2 Add more integration tests for classify_model**
+- CNN model: `Conv2d(stride=1) -> ReLU -> MaxPool2d -> Conv2d(stride=1) -> ReLU -> AdaptiveAvgPool2d -> Linear`
+- Verify correct S/K counts and erasure score
+- Test a model with BatchNorm (train and eval mode)
+- Test a model that uses functional ops (F.relu, torch.add) — verify torch.fx captures them
+
+**1.3 Implement BWSK primitives** (unskip tests in `tests/test_primitives.py`)
+- `B(f, g)(x)` = `f(g(x))` — composition
+- `W(f)(x)` = `f(x)(x)` — self-application
+- `S(f, g)(x)` = `f(x)(g(x))` — fan-out + combine
+- `K(f)(x, y)` = `f(x)` — erasure (y discarded)
+- These are pure Python callables, NOT nn.Modules yet (that's Phase 2)
+- File: `src/bwsk/primitives.py`, tests: `tests/test_primitives.py`
+
+**1.4 Implement ProvenanceTracker.track()** (unskip `test_track_records_event`)
+- `track(op, inputs, output)` should create a `ProvenanceNode` and add it to `self.graph.nodes`
+- Assign sequential IDs, record op_type and classification
+- File: `src/bwsk/provenance.py`, tests: `tests/test_provenance.py`
+
+**1.5 Implement BWSKTrainer.train_step()** (unskip both training tests)
+- Wrap a standard training step: forward, loss, backward, optimizer step
+- Return `dict[str, float]` with at minimum `"loss"` and `"erasure_budget"` keys
+- Classify the model once in `__init__`, report erasure budget with each step
+- File: `src/bwsk/training.py`, tests: `tests/test_training.py`
+
+**1.6 Run `just ci` and commit all Phase 1 work**
+
+### Phase 2 Work (BWSK DSL + Provenance)
+
+**2.1 Upgrade primitives to nn.Module wrappers**
+- Make B, W, S, K extend `nn.Module` with proper `forward()` methods
+- Add shape inference and validation
+- Each primitive self-reports its S/K classification via a `classification` property
+- Update tests to use torch tensors instead of plain Python values
+
+**2.2 Implement `>>` operator for composition**
+- `module_a >> module_b` returns `B(module_b, module_a)` (pipeline order)
+- Type-check output shape of left matches input shape of right
+
+**2.3 Implement ProvenanceTracker with forward hooks**
+- Register hooks on model modules during forward pass
+- Track S-phase provenance, annotate K-boundaries
+- Implement `to_json()`, `to_graphviz()` output formats
+
+**2.4 Add architecture examples in DSL**
+- Express a simple MLP, a residual block, and an attention head using B/W/S/K
+- Verify compiled modules produce identical outputs to vanilla PyTorch (atol=1e-6)
+
+**2.5 Write ADRs for any design decisions made**
+
+### Post-Phase-2 (future sessions)
+- Phase 3: Reversible backprop + CALM training
+- Phase 4: Rust port
+- Phase 5: Erasure-minimized NAS
+
+### Work Principles
+- **TDD**: Write failing test, implement, refactor. No code without a test.
+- **`just ci` before every commit**: lint + format + test + security must all pass.
+- **`just format-fix`**: Run after writing code to auto-fix formatting.
+- **Docstrings on everything**: Google style, include the "why". Undocumented code is incomplete.
+- **Update indexes after changes**: `docs/INDEX.md`, CLAUDE.md status, memory files.
+- **Keep CLAUDE.md current**: Update "Current status" and this Continuation Plan after each milestone. Remove completed items, add new ones discovered during implementation.
+- **Create ADRs** for non-obvious design decisions. Document "why" and "alternatives considered".
+- **Commit after each logical unit of work** (e.g., after primitives, after provenance, etc.)
 
 ---
 
