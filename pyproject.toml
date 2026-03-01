@@ -23,6 +23,12 @@ dev = [
     "detect-secrets>=1.4",
     "pip-audit>=2.7",
 ]
+benchmark = [
+    "transformers>=4.30",
+    "datasets>=2.14",
+    "accelerate>=0.20",
+    "tqdm>=4.64",
+]
 
 [build-system]
 requires = ["hatchling"]

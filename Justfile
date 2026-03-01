@@ -56,3 +56,7 @@ rust-ci: rust-fmt rust-clippy rust-check rust-test
 
 # Full CI (Python + Rust)
 full-ci: ci rust-ci
+
+# Run GPT-2 benchmark (BWSK vs conventional PyTorch)
+gpt2-benchmark:
+    uv run python scripts/gpt2_benchmark.py

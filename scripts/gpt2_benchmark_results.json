@@ -1,0 +1,2002 @@
+{
+  "model_name": "gpt2",
+  "device": "NVIDIA GeForce RTX 5080",
+  "timestamp": "2026-03-01 13:53:19",
+  "classification": {
+    "total_modules": 125,
+    "s_count": 76,
+    "k_count": 49,
+    "gray_count": 0,
+    "s_ratio": 0.608,
+    "k_ratio": 0.392,
+    "gray_ratio": 0.0,
+    "per_block": [
+      {
+        "block_idx": 0,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.0.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.0.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.0.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.0.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.0.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.0.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.0.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.0.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.0.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.0.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 1,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.1.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.1.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.1.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.1.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.1.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.1.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.1.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.1.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.1.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.1.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 2,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.2.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.2.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.2.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.2.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.2.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.2.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.2.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.2.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.2.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.2.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 3,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.3.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.3.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.3.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.3.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.3.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.3.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.3.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.3.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.3.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.3.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 4,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.4.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.4.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.4.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.4.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.4.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.4.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.4.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.4.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.4.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.4.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 5,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.5.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.5.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.5.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.5.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.5.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.5.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.5.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.5.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.5.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.5.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 6,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.6.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.6.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.6.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.6.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.6.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.6.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.6.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.6.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.6.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.6.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 7,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.7.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.7.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.7.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.7.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.7.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.7.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.7.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.7.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.7.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.7.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 8,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.8.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.8.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.8.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.8.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.8.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.8.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.8.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.8.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.8.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.8.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 9,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.9.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.9.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.9.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.9.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.9.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.9.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.9.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.9.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.9.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.9.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 10,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.10.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.10.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.10.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.10.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.10.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.10.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.10.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.10.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.10.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.10.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      },
+      {
+        "block_idx": 11,
+        "s_count": 6,
+        "k_count": 4,
+        "gray_count": 0,
+        "total": 10,
+        "s_ratio": 0.6,
+        "modules": [
+          {
+            "name": "transformer.h.11.ln_1",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.11.attn.c_attn",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.11.attn.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.11.attn.attn_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.11.attn.resid_dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          },
+          {
+            "name": "transformer.h.11.ln_2",
+            "classification": "S",
+            "op_type": "nn.LayerNorm"
+          },
+          {
+            "name": "transformer.h.11.mlp.c_fc",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.11.mlp.c_proj",
+            "classification": "S",
+            "op_type": "Conv1D"
+          },
+          {
+            "name": "transformer.h.11.mlp.act",
+            "classification": "K",
+            "op_type": "NewGELUActivation"
+          },
+          {
+            "name": "transformer.h.11.mlp.dropout",
+            "classification": "K",
+            "op_type": "nn.Dropout"
+          }
+        ]
+      }
+    ],
+    "non_block_modules": [
+      {
+        "name": "transformer.wte",
+        "classification": "S",
+        "op_type": "nn.Embedding"
+      },
+      {
+        "name": "transformer.wpe",
+        "classification": "S",
+        "op_type": "nn.Embedding"
+      },
+      {
+        "name": "transformer.drop",
+        "classification": "K",
+        "op_type": "nn.Dropout"
+      },
+      {
+        "name": "transformer.ln_f",
+        "classification": "S",
+        "op_type": "nn.LayerNorm"
+      },
+      {
+        "name": "lm_head",
+        "classification": "S",
+        "op_type": "nn.Linear"
+      }
+    ]
+  },
+  "perplexity_baseline": {
+    "perplexity": 25.192726135253906,
+    "num_windows": 561,
+    "wall_time_s": 7.597872982005356,
+    "provenance_overhead_s": 0.0,
+    "provenance_s_phases": 0,
+    "provenance_k_boundaries": 0,
+    "provenance_erasure_budget": 0.0
+  },
+  "perplexity_provenance": {
+    "perplexity": 25.192726135253906,
+    "num_windows": 561,
+    "wall_time_s": 7.601737365999725,
+    "provenance_overhead_s": 0.0038643839943688363,
+    "provenance_s_phases": 14026,
+    "provenance_k_boundaries": 14025,
+    "provenance_erasure_budget": 0.22123893805309736
+  },
+  "finetune_conventional": {
+    "mode": "conventional",
+    "final_loss": 3.5461018085479736,
+    "final_perplexity": 19.536039352416992,
+    "wall_time_s": 25.606640684010927,
+    "peak_memory_mb": 5234.8056640625,
+    "loss_curve": [
+      3.9898698329925537,
+      3.8078510761260986,
+      3.6849818229675293,
+      3.901992082595825,
+      3.7436604499816895,
+      3.840147018432617,
+      3.4120726585388184,
+      3.407670497894287,
+      3.291013717651367,
+      3.3441951274871826,
+      3.8352620601654053,
+      3.4177157878875732,
+      3.7322537899017334,
+      3.6053106784820557,
+      3.7383227348327637,
+      3.205263614654541,
+      3.465256452560425,
+      3.6599154472351074,
+      3.699199676513672,
+      3.6988041400909424,
+      3.593264579772949,
+      3.745553970336914,
+      3.603458881378174,
+      4.01356315612793,
+      3.456181287765503,
+      3.4683353900909424,
+      3.4192166328430176,
+      3.420389175415039,
+      3.3953123092651367,
+      3.7017815113067627,
+      3.720186233520508,
+      3.7163150310516357,
+      3.7714970111846924,
+      3.5124459266662598,
+      3.3924224376678467,
+      3.3772597312927246,
+      3.4261467456817627,
+      3.481271982192993,
+      3.597933769226074,
+      3.9706788063049316,
+      3.604403495788574,
+      3.198239803314209,
+      3.3838353157043457,
+      3.4067773818969727,
+      3.2344443798065186,
+      3.692678928375244,
+      3.8197579383850098,
+      3.728691339492798,
+      3.449115037918091,
+      3.5415709018707275,
+      3.6539344787597656,
+      3.315660238265991,
+      3.30329966545105,
+      3.64805006980896,
+      3.305982828140259,
+      2.9656436443328857,
+      2.698110818862915,
+      3.0286338329315186,
+      2.9055802822113037,
+      3.086827039718628,
+      3.1193718910217285,
+      3.3456814289093018,
+      3.3847856521606445,
+      3.6333134174346924,
+      3.6519317626953125,
+      3.8160665035247803,
+      3.1794395446777344,
+      3.3630900382995605,
+      3.532430648803711,
+      3.3391239643096924,
+      3.361302375793457,
+      3.49143648147583,
+      3.615230083465576,
+      3.576706647872925,
+      3.1486940383911133,
+      3.346442937850952,
+      3.3748815059661865,
+      3.554593324661255,
+      3.509775400161743,
+      3.2520925998687744,
+      3.209726333618164,
+      3.374096155166626,
+      3.5595626831054688,
+      3.4171106815338135,
+      3.3482813835144043,
+      3.0418505668640137,
+      3.310586452484131,
+      3.452528715133667,
+      3.4885761737823486,
+      3.4824705123901367,
+      3.721181631088257,
+      3.4313600063323975,
+      3.3871266841888428,
+      2.8635003566741943,
+      3.6790201663970947,
+      3.0785837173461914,
+      3.103332996368408,
+      3.245481491088867,
+      3.525569200515747,
+      3.5102763175964355,
+      3.4607300758361816,
+      3.4723687171936035,
+      3.4737298488616943,
+      3.39015531539917,
+      3.402395248413086,
+      3.386448383331299,
+      3.53035306930542,
+      3.6818742752075195,
+      3.7312064170837402,
+      3.473954439163208,
+      3.2176673412323,
+      2.995351791381836,
+      3.3699374198913574,
+      3.38071608543396,
+      2.9525411128997803,
+      2.73824405670166,
+      3.0827555656433105,
+      3.2028157711029053,
+      2.895878314971924,
+      3.0477449893951416,
+      3.0618836879730225,
+      3.6671338081359863,
+      3.7481329441070557,
+      3.7302887439727783,
+      3.3600409030914307,
+      3.4794957637786865,
+      3.506629467010498,
+      3.6204214096069336,
+      3.6864068508148193,
+      3.6212422847747803,
+      3.0411269664764404,
+      3.1572794914245605,
+      2.972963809967041,
+      3.414254665374756,
+      3.1162850856781006,
+      3.3514161109924316,
+      3.255840539932251,
+      2.8251402378082275,
+      3.253308057785034,
+      3.2272989749908447,
+      3.0026867389678955,
+      3.2295260429382324,
+      3.1336941719055176,
+      3.343449115753174,
+      3.1351821422576904,
+      3.167896270751953,
+      3.400883913040161,
+      3.241765260696411,
+      3.267655611038208,
+      3.0532798767089844,
+      3.150599956512451,
+      3.3216538429260254,
+      3.220700740814209,
+      3.296239137649536,
+      3.374227523803711,
+      3.171077013015747,
+      3.290846824645996,
+      3.2623441219329834,
+      3.4073264598846436,
+      3.4153544902801514,
+      3.30267596244812,
+      3.386488437652588,
+      2.957149028778076,
+      3.550368070602417,
+      3.374238967895508,
+      3.229935884475708,
+      3.830922842025757,
+      3.685621500015259,
+      3.6078040599823,
+      3.7675580978393555,
+      3.7364988327026367,
+      3.989065647125244,
+      3.712871789932251,
+      3.339764356613159,
+      3.1257128715515137,
+      3.2963979244232178,
+      3.0877158641815186,
+      3.183607578277588,
+      3.0937397480010986,
+      2.9894373416900635,
+      2.602933645248413,
+      3.118025541305542,
+      3.40334415435791,
+      3.5064399242401123,
+      3.42555832862854,
+      3.4752941131591797,
+      3.5577733516693115,
+      3.6418709754943848,
+      3.3285186290740967,
+      3.3636889457702637,
+      3.1932194232940674,
+      3.5077030658721924,
+      3.62835431098938,
+      3.3756000995635986,
+      3.367558717727661,
+      3.241609811782837,
+      3.080097198486328,
+      3.4245095252990723,
+      2.988112211227417,
+      3.280303955078125,
+      3.3904526233673096,
+      3.4269044399261475,
+      3.656773090362549,
+      3.656111001968384,
+      3.2300615310668945,
+      3.417161464691162,
+      3.4716949462890625,
+      3.592195510864258,
+      3.802454948425293,
+      3.650726795196533,
+      3.9978294372558594,
+      3.735553503036499,
+      3.3829598426818848,
+      3.278533458709717,
+      3.4294819831848145,
+      3.411022186279297,
+      3.4089698791503906,
+      3.5190014839172363,
+      3.5526845455169678,
+      3.6249420642852783,
+      3.1448535919189453,
+      3.287435293197632,
+      3.3546974658966064,
+      3.4606845378875732,
+      3.792642831802368,
+      4.074418544769287,
+      3.759056568145752,
+      3.2233309745788574,
+      3.2581796646118164,
+      3.648597002029419,
+      3.5678470134735107,
+      3.197089910507202,
+      3.473278760910034,
+      3.0992701053619385,
+      2.974368095397949,
+      3.417689561843872,
+      3.3140203952789307,
+      3.185828447341919,
+      3.233644485473633,
+      3.358949899673462,
+      3.436966896057129,
+      3.4565958976745605,
+      3.694837808609009,
+      3.3667287826538086,
+      3.573155641555786,
+      3.750612497329712,
+      3.6038262844085693,
+      3.442101001739502,
+      2.815119981765747,
+      3.1599345207214355,
+      3.2037947177886963,
+      3.2331061363220215,
+      3.375305414199829,
+      3.4152438640594482,
+      3.204556465148926,
+      3.358224630355835,
+      3.1880152225494385,
+      3.026210308074951,
+      3.3259401321411133,
+      3.2573108673095703,
+      3.2642011642456055,
+      3.3129539489746094,
+      3.178631544113159,
+      3.0664775371551514,
+      3.4274284839630127,
+      3.034257173538208,
+      3.4310531616210938,
+      3.444803237915039,
+      3.507244825363159,
+      3.2093417644500732,
+      3.1703031063079834,
+      3.2326478958129883,
+      2.9707956314086914,
+      3.54392671585083,
+      3.4307119846343994,
+      3.2014260292053223,
+      3.491208076477051,
+      3.332585334777832,
+      3.2700183391571045,
+      3.2931182384490967,
+      3.070857048034668,
+      3.2093136310577393,
+      3.287968158721924,
+      3.480222702026367,
+      3.0496370792388916,
+      3.01657772064209,
+      3.139673948287964,
+      3.8561935424804688,
+      3.6071953773498535,
+      3.7334787845611572,
+      3.4782650470733643,
+      2.873776912689209,
+      3.3449337482452393,
+      3.2110397815704346,
+      3.1224567890167236,
+      3.064805030822754,
+      3.2547333240509033,
+      3.4347944259643555,
+      3.6795053482055664,
+      3.5461018085479736
+    ],
+    "erasure_budget": 0.0,
+    "parallelism_ratio": 0.0
+  },
+  "finetune_bwsk_analyzed": {
+    "mode": "bwsk_analyzed",
+    "final_loss": 3.566218852996826,
+    "final_perplexity": 19.54793930053711,
+    "wall_time_s": 25.633033404010348,
+    "peak_memory_mb": 5233.693359375,
+    "loss_curve": [
+      3.9850902557373047,
+      3.81154727935791,
+      3.6659786701202393,
+      3.906538486480713,
+      3.761835813522339,
+      3.882399559020996,
+      3.407212257385254,
+      3.4169464111328125,
+      3.2843170166015625,
+      3.341806173324585,
+      3.8183035850524902,
+      3.4296841621398926,
+      3.7700438499450684,
+      3.591536521911621,
+      3.7328035831451416,
+      3.210540533065796,
+      3.459986686706543,
+      3.6556925773620605,
+      3.710683822631836,
+      3.709792375564575,
+      3.5986666679382324,
+      3.731198310852051,
+      3.565688133239746,
+      3.9997057914733887,
+      3.4857022762298584,
+      3.4912166595458984,
+      3.4349911212921143,
+      3.428344964981079,
+      3.376011610031128,
+      3.7086708545684814,
+      3.7441296577453613,
+      3.708364725112915,
+      3.7391998767852783,
+      3.534712553024292,
+      3.4043357372283936,
+      3.3811421394348145,
+      3.414508819580078,
+      3.4783058166503906,
+      3.5905096530914307,
+      3.9886388778686523,
+      3.588087558746338,
+      3.1795742511749268,
+      3.374249219894409,
+      3.419109582901001,
+      3.2361929416656494,
+      3.670206308364868,
+      3.840630531311035,
+      3.7226438522338867,
+      3.4401347637176514,
+      3.508636713027954,
+      3.654583692550659,
+      3.311368465423584,
+      3.3260180950164795,
+      3.6418046951293945,
+      3.330831289291382,
+      2.925497055053711,
+      2.7420570850372314,
+      3.038398265838623,
+      2.872239828109741,
+      3.082073211669922,
+      3.1307692527770996,
+      3.352430582046509,
+      3.378626585006714,
+      3.6532528400421143,
+      3.6645123958587646,
+      3.818483829498291,
+      3.1759040355682373,
+      3.354344129562378,
+      3.5280203819274902,
+      3.340975284576416,
+      3.381396532058716,
+      3.4958975315093994,
+      3.586336374282837,
+      3.5883212089538574,
+      3.1417574882507324,
+      3.3463134765625,
+      3.3913393020629883,
+      3.5425102710723877,
+      3.5286428928375244,
+      3.2871406078338623,
+      3.195136308670044,
+      3.362077236175537,
+      3.577920436859131,
+      3.406829833984375,
+      3.388638734817505,
+      3.03004789352417,
+      3.2774288654327393,
+      3.4893603324890137,
+      3.503134250640869,
+      3.4454612731933594,
+      3.7217657566070557,
+      3.3912532329559326,
+      3.3777644634246826,
+      2.8372795581817627,
+      3.637946605682373,
+      3.0571963787078857,
+      3.0571556091308594,
+      3.2363061904907227,
+      3.545870780944824,
+      3.472032308578491,
+      3.4624249935150146,
+      3.4563379287719727,
+      3.492664098739624,
+      3.378493309020996,
+      3.405457019805908,
+      3.3945021629333496,
+      3.533356189727783,
+      3.6771790981292725,
+      3.747805118560791,
+      3.4811208248138428,
+      3.2168662548065186,
+      3.0064890384674072,
+      3.378699779510498,
+      3.394028663635254,
+      2.9380125999450684,
+      2.754817247390747,
+      3.095083475112915,
+      3.1930971145629883,
+      2.9199342727661133,
+      3.0099568367004395,
+      3.0254416465759277,
+      3.6933422088623047,
+      3.7545790672302246,
+      3.747204542160034,
+      3.36484694480896,
+      3.4484291076660156,
+      3.494981527328491,
+      3.631110668182373,
+      3.6716432571411133,
+      3.6022696495056152,
+      3.034982442855835,
+      3.175895929336548,
+      2.9456441402435303,
+      3.4225451946258545,
+      3.115518093109131,
+      3.3837027549743652,
+      3.262847661972046,
+      2.839796781539917,
+      3.2513482570648193,
+      3.2029592990875244,
+      3.0191650390625,
+      3.256122589111328,
+      3.148941993713379,
+      3.379155158996582,
+      3.1294875144958496,
+      3.162484645843506,
+      3.3717031478881836,
+      3.2422125339508057,
+      3.2755515575408936,
+      3.048830032348633,
+      3.1678965091705322,
+      3.293057680130005,
+      3.2373955249786377,
+      3.271702766418457,
+      3.372666597366333,
+      3.192248821258545,
+      3.2556564807891846,
+      3.2389233112335205,
+      3.407867670059204,
+      3.4451487064361572,
+      3.312443733215332,
+      3.372203826904297,
+      2.9459786415100098,
+      3.5271410942077637,
+      3.3890504837036133,
+      3.2025234699249268,
+      3.8395707607269287,
+      3.6797354221343994,
+      3.6348204612731934,
+      3.751924514770508,
+      3.739570140838623,
+      3.9725425243377686,
+      3.68325138092041,
+      3.3435757160186768,
+      3.141953945159912,
+      3.283405303955078,
+      3.105844259262085,
+      3.1936211585998535,
+      3.117140293121338,
+      2.997258186340332,
+      2.5699214935302734,
+      3.12923264503479,
+      3.384300708770752,
+      3.5004076957702637,
+      3.4417307376861572,
+      3.4782538414001465,
+      3.553530216217041,
+      3.6307480335235596,
+      3.326368808746338,
+      3.3572404384613037,
+      3.1735830307006836,
+      3.47164249420166,
+      3.6543638706207275,
+      3.397351026535034,
+      3.353835344314575,
+      3.277010202407837,
+      3.062591552734375,
+      3.424537181854248,
+      3.003636121749878,
+      3.2727322578430176,
+      3.410651206970215,
+      3.410438060760498,
+      3.6771912574768066,
+      3.681020975112915,
+      3.2442848682403564,
+      3.4245681762695312,
+      3.422988176345825,
+      3.610293388366699,
+      3.7934117317199707,
+      3.692397356033325,
+      3.997600555419922,
+      3.7722713947296143,
+      3.396035671234131,
+      3.251723527908325,
+      3.442347526550293,
+      3.400203227996826,
+      3.41951060295105,
+      3.526872158050537,
+      3.5415518283843994,
+      3.628713607788086,
+      3.1264352798461914,
+      3.3035824298858643,
+      3.3371357917785645,
+      3.4638173580169678,
+      3.7896902561187744,
+      4.109447956085205,
+      3.787142276763916,
+      3.2195940017700195,
+      3.2667672634124756,
+      3.66560435295105,
+      3.572687864303589,
+      3.2054293155670166,
+      3.448944091796875,
+      3.0807738304138184,
+      3.0134353637695312,
+      3.435451030731201,
+      3.329558849334717,
+      3.177797555923462,
+      3.249509334564209,
+      3.334118127822876,
+      3.4265782833099365,
+      3.4412858486175537,
+      3.71653413772583,
+      3.3963615894317627,
+      3.588782548904419,
+      3.748847246170044,
+      3.6127638816833496,
+      3.4343032836914062,
+      2.790046215057373,
+      3.1372125148773193,
+      3.1878602504730225,
+      3.2447245121002197,
+      3.370757818222046,
+      3.4224634170532227,
+      3.195028781890869,
+      3.3276469707489014,
+      3.1971347332000732,
+      3.012448787689209,
+      3.2846508026123047,
+      3.2651655673980713,
+      3.2511088848114014,
+      3.3307478427886963,
+      3.15874981880188,
+      3.0512077808380127,
+      3.4200141429901123,
+      3.0355918407440186,
+      3.4166975021362305,
+      3.4353883266448975,
+      3.5148792266845703,
+      3.2340617179870605,
+      3.1371517181396484,
+      3.218068838119507,
+      2.997603178024292,
+      3.53790545463562,
+      3.4239320755004883,
+      3.215928077697754,
+      3.487262725830078,
+      3.3319718837738037,
+      3.2660775184631348,
+      3.2929866313934326,
+      3.0837645530700684,
+      3.2101428508758545,
+      3.324890375137329,
+      3.4838016033172607,
+      3.0591650009155273,
+      2.988192319869995,
+      3.140651226043701,
+      3.843428373336792,
+      3.596289873123169,
+      3.7133350372314453,
+      3.4906375408172607,
+      2.8774638175964355,
+      3.3438522815704346,
+      3.2329981327056885,
+      3.1349706649780273,
+      3.023775339126587,
+      3.241384506225586,
+      3.4221413135528564,
+      3.676774024963379,
+      3.566218852996826
+    ],
+    "erasure_budget": 0.392,
+    "parallelism_ratio": 0.608
+  },
+  "finetune_bwsk_reversible": {
+    "mode": "bwsk_reversible",
+    "final_loss": 3.5498390197753906,
+    "final_perplexity": 19.50462532043457,
+    "wall_time_s": 30.906711247982457,
+    "peak_memory_mb": 3101.46875,
+    "loss_curve": [
+      3.9520998001098633,
+      3.8096821308135986,
+      3.656484603881836,
+      3.9259819984436035,
+      3.763371706008911,
+      3.8908066749572754,
+      3.456853151321411,
+      3.4875259399414062,
+      3.274606704711914,
+      3.331730842590332,
+      3.8418021202087402,
+      3.442711591720581,
+      3.734637498855591,
+      3.609668016433716,
+      3.776184320449829,
+      3.212233304977417,
+      3.4695513248443604,
+      3.670985460281372,
+      3.7223691940307617,
+      3.711881399154663,
+      3.6039161682128906,
+      3.732440233230591,
+      3.6103384494781494,
+      3.9761412143707275,
+      3.468169927597046,
+      3.485661268234253,
+      3.4163427352905273,
+      3.424363374710083,
+      3.3833580017089844,
+      3.745570182800293,
+      3.7435073852539062,
+      3.708822727203369,
+      3.759568214416504,
+      3.4981772899627686,
+      3.401110887527466,
+      3.4201602935791016,
+      3.436018228530884,
+      3.4796485900878906,
+      3.598203182220459,
+      3.9956753253936768,
+      3.6129815578460693,
+      3.184575080871582,
+      3.3648521900177,
+      3.3871777057647705,
+      3.2342591285705566,
+      3.683375358581543,
+      3.832935094833374,
+      3.722259283065796,
+      3.4565558433532715,
+      3.5121498107910156,
+      3.684846878051758,
+      3.305161237716675,
+      3.294471263885498,
+      3.6402170658111572,
+      3.3274006843566895,
+      2.9065921306610107,
+      2.7360002994537354,
+      3.0146822929382324,
+      2.9140169620513916,
+      3.0766658782958984,
+      3.0985357761383057,
+      3.324498176574707,
+      3.3883326053619385,
+      3.643739700317383,
+      3.6641905307769775,
+      3.8304922580718994,
+      3.1490859985351562,
+      3.348464012145996,
+      3.541278839111328,
+      3.3574771881103516,
+      3.366243600845337,
+      3.48482084274292,
+      3.5705714225769043,
+      3.5665488243103027,
+      3.155630350112915,
+      3.348314046859741,
+      3.4008383750915527,
+      3.5231306552886963,
+      3.4883813858032227,
+      3.2720484733581543,
+      3.1734626293182373,
+      3.381248712539673,
+      3.600764036178589,
+      3.420788049697876,
+      3.391757011413574,
+      3.049406051635742,
+      3.299161672592163,
+      3.4719150066375732,
+      3.5111401081085205,
+      3.4693901538848877,
+      3.738410234451294,
+      3.407008171081543,
+      3.3833303451538086,
+      2.8622043132781982,
+      3.6605591773986816,
+      3.0605814456939697,
+      3.0843727588653564,
+      3.238199472427368,
+      3.5199341773986816,
+      3.491305112838745,
+      3.4597744941711426,
+      3.4588634967803955,
+      3.497286319732666,
+      3.3756532669067383,
+      3.4086999893188477,
+      3.3920459747314453,
+      3.5305776596069336,
+      3.6986160278320312,
+      3.7379825115203857,
+      3.4681222438812256,
+      3.203279495239258,
+      3.0015265941619873,
+      3.3774662017822266,
+      3.411924123764038,
+      2.9570727348327637,
+      2.73225998878479,
+      3.0936782360076904,
+      3.216306209564209,
+      2.861509084701538,
+      3.029338836669922,
+      3.056081533432007,
+      3.710529088973999,
+      3.724318742752075,
+      3.7161026000976562,
+      3.35002064704895,
+      3.4422061443328857,
+      3.5014021396636963,
+      3.617842435836792,
+      3.6934854984283447,
+      3.6341359615325928,
+      3.0533671379089355,
+      3.1631503105163574,
+      2.9597017765045166,
+      3.4066526889801025,
+      3.1236255168914795,
+      3.381357192993164,
+      3.2773025035858154,
+      2.852362871170044,
+      3.255350112915039,
+      3.20430850982666,
+      3.0309414863586426,
+      3.26444149017334,
+      3.131523370742798,
+      3.3277456760406494,
+      3.150388717651367,
+      3.1695873737335205,
+      3.3998239040374756,
+      3.237168073654175,
+      3.2643206119537354,
+      3.0640087127685547,
+      3.1616063117980957,
+      3.31630539894104,
+      3.2405898571014404,
+      3.275771379470825,
+      3.369633197784424,
+      3.1636459827423096,
+      3.2684202194213867,
+      3.25858998298645,
+      3.394909143447876,
+      3.4106531143188477,
+      3.308697462081909,
+      3.3636837005615234,
+      2.963779926300049,
+      3.589146137237549,
+      3.3901398181915283,
+      3.2310307025909424,
+      3.824558973312378,
+      3.677626132965088,
+      3.596564531326294,
+      3.7849950790405273,
+      3.7104172706604004,
+      3.9819536209106445,
+      3.684417486190796,
+      3.3264079093933105,
+      3.121269464492798,
+      3.27620792388916,
+      3.1214969158172607,
+      3.1904962062835693,
+      3.1017863750457764,
+      2.993837833404541,
+      2.608474016189575,
+      3.110478639602661,
+      3.398084878921509,
+      3.4834859371185303,
+      3.4458107948303223,
+      3.461505651473999,
+      3.518969774246216,
+      3.6475133895874023,
+      3.3236305713653564,
+      3.348714828491211,
+      3.1961419582366943,
+      3.475393533706665,
+      3.6106162071228027,
+      3.3815932273864746,
+      3.3594934940338135,
+      3.2515804767608643,
+      3.069115400314331,
+      3.413703203201294,
+      3.0288937091827393,
+      3.2692136764526367,
+      3.387157917022705,
+      3.427513599395752,
+      3.6771397590637207,
+      3.671013593673706,
+      3.2433061599731445,
+      3.4104983806610107,
+      3.4373533725738525,
+      3.6223819255828857,
+      3.7950046062469482,
+      3.6989896297454834,
+      3.9995322227478027,
+      3.8037033081054688,
+      3.39847993850708,
+      3.263636589050293,
+      3.4406909942626953,
+      3.435720682144165,
+      3.383430242538452,
+      3.5417189598083496,
+      3.5609874725341797,
+      3.6265573501586914,
+      3.1559126377105713,
+      3.286426544189453,
+      3.324765682220459,
+      3.4641857147216797,
+      3.7976503372192383,
+      4.069265842437744,
+      3.7692065238952637,
+      3.189805269241333,
+      3.2505040168762207,
+      3.6394166946411133,
+      3.5848710536956787,
+      3.1938719749450684,
+      3.436528444290161,
+      3.1070191860198975,
+      2.9980850219726562,
+      3.3999440670013428,
+      3.342256546020508,
+      3.187839984893799,
+      3.266680955886841,
+      3.359922170639038,
+      3.450043201446533,
+      3.4602084159851074,
+      3.6898913383483887,
+      3.3640146255493164,
+      3.580648422241211,
+      3.7567451000213623,
+      3.6023638248443604,
+      3.450868844985962,
+      2.8117282390594482,
+      3.1410722732543945,
+      3.160691976547241,
+      3.2388761043548584,
+      3.3879456520080566,
+      3.4037771224975586,
+      3.2063260078430176,
+      3.330660581588745,
+      3.204759359359741,
+      3.0528223514556885,
+      3.3117053508758545,
+      3.236936569213867,
+      3.2594470977783203,
+      3.3121144771575928,
+      3.1861488819122314,
+      3.054832696914673,
+      3.420393705368042,
+      3.0292773246765137,
+      3.448970079421997,
+      3.442059278488159,
+      3.5121281147003174,
+      3.2285590171813965,
+      3.1377475261688232,
+      3.2231268882751465,
+      2.9963130950927734,
+      3.552534580230713,
+      3.4344961643218994,
+      3.2223989963531494,
+      3.524207592010498,
+      3.3325719833374023,
+      3.2608425617218018,
+      3.2979795932769775,
+      3.082838773727417,
+      3.204969644546509,
+      3.2905421257019043,
+      3.4909439086914062,
+      3.07593035697937,
+      2.98543119430542,
+      3.1735899448394775,
+      3.8596224784851074,
+      3.600267171859741,
+      3.725886344909668,
+      3.473762273788452,
+      2.8724920749664307,
+      3.332242488861084,
+      3.2358689308166504,
+      3.1248137950897217,
+      3.023672580718994,
+      3.2377700805664062,
+      3.4607644081115723,
+      3.6722357273101807,
+      3.5498390197753906
+    ],
+    "erasure_budget": 0.392,
+    "parallelism_ratio": 0.608
+  },
+  "calm_blocks": [
+    {
+      "block_idx": 0,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 1,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 2,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 3,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 4,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 5,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 6,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 7,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 8,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 9,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 10,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    },
+    {
+      "block_idx": 11,
+      "total_children": 4,
+      "monotone_count": 2,
+      "sync_count": 2,
+      "parallelism_ratio": 0.5,
+      "num_sync_barriers": 2,
+      "segment_names": [
+        [
+          "ln_1"
+        ],
+        [
+          "attn"
+        ],
+        [
+          "ln_2"
+        ],
+        [
+          "mlp"
+        ]
+      ]
+    }
+  ],
+  "calm_partition_2": [
+    [
+      "ln_1",
+      "attn"
+    ],
+    [
+      "ln_2",
+      "mlp"
+    ]
+  ],
+  "calm_partition_4": [
+    [
+      "ln_1",
+      "attn"
+    ],
+    [
+      "ln_2",
+      "mlp"
+    ],
+    [],
+    []
+  ]
+}
