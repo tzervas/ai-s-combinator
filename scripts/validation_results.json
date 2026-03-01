@@ -1,0 +1,585 @@
+{
+  "architecture_analysis": {
+    "SimpleMLP": {
+      "total_ops": 5,
+      "s_count": 3,
+      "k_count": 2,
+      "gray_count": 0,
+      "s_ratio": 0.6,
+      "k_ratio": 0.4,
+      "erasure_score": 0.4,
+      "per_layer_summary": {
+        "net": {
+          "s_count": 3,
+          "k_count": 2,
+          "gray_count": 0,
+          "erasure_score": 0.4
+        }
+      }
+    },
+    "SimpleCNN": {
+      "total_ops": 9,
+      "s_count": 4,
+      "k_count": 4,
+      "gray_count": 1,
+      "s_ratio": 0.444,
+      "k_ratio": 0.444,
+      "erasure_score": 0.444,
+      "per_layer_summary": {
+        "features": {
+          "s_count": 2,
+          "k_count": 4,
+          "gray_count": 0,
+          "erasure_score": 0.6666666666666666
+        },
+        "size": {
+          "s_count": 0,
+          "k_count": 0,
+          "gray_count": 1,
+          "erasure_score": 0.0
+        },
+        "view": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "classifier": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        }
+      }
+    },
+    "ResNetBlock": {
+      "total_ops": 14,
+      "s_count": 6,
+      "k_count": 8,
+      "gray_count": 0,
+      "s_ratio": 0.429,
+      "k_ratio": 0.571,
+      "erasure_score": 0.571,
+      "per_layer_summary": {
+        "block1": {
+          "s_count": 2,
+          "k_count": 3,
+          "gray_count": 0,
+          "erasure_score": 0.6
+        },
+        "add": {
+          "s_count": 2,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "relu": {
+          "s_count": 0,
+          "k_count": 2,
+          "gray_count": 0,
+          "erasure_score": 1.0
+        },
+        "block2": {
+          "s_count": 2,
+          "k_count": 3,
+          "gray_count": 0,
+          "erasure_score": 0.6
+        }
+      }
+    },
+    "TransformerBlock": {
+      "total_ops": 16,
+      "s_count": 12,
+      "k_count": 1,
+      "gray_count": 3,
+      "s_ratio": 0.75,
+      "k_ratio": 0.062,
+      "erasure_score": 0.062,
+      "per_layer_summary": {
+        "norm1": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "q": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "k": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "v": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "transpose": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "matmul": {
+          "s_count": 0,
+          "k_count": 0,
+          "gray_count": 2,
+          "erasure_score": 0.0
+        },
+        "truediv": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "softmax": {
+          "s_count": 0,
+          "k_count": 0,
+          "gray_count": 1,
+          "erasure_score": 0.0
+        },
+        "out": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "add": {
+          "s_count": 2,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "norm2": {
+          "s_count": 1,
+          "k_count": 0,
+          "gray_count": 0,
+          "erasure_score": 0.0
+        },
+        "ffn": {
+          "s_count": 2,
+          "k_count": 1,
+          "gray_count": 0,
+          "erasure_score": 0.3333333333333333
+        }
+      }
+    },
+    "batchnorm_comparison": {
+      "train_mode": {
+        "classification": "K",
+        "confidence": 0.8
+      },
+      "eval_mode": {
+        "classification": "S",
+        "confidence": 0.8
+      }
+    }
+  },
+  "memory_optimization": {
+    "SimpleMLP": {
+      "total_layers": 1,
+      "s_count": 1,
+      "k_count": 0,
+      "gray_count": 0,
+      "estimated_memory_savings": 1.0
+    },
+    "SimpleCNN": {
+      "total_layers": 2,
+      "s_count": 2,
+      "k_count": 0,
+      "gray_count": 0,
+      "estimated_memory_savings": 1.0
+    },
+    "ResNetBlock": {
+      "total_layers": 3,
+      "s_count": 2,
+      "k_count": 1,
+      "gray_count": 0,
+      "estimated_memory_savings": 0.667
+    },
+    "TransformerBlock": {
+      "total_layers": 7,
+      "s_count": 7,
+      "k_count": 0,
+      "gray_count": 0,
+      "estimated_memory_savings": 1.0
+    },
+    "reversible_equivalence": {
+      "max_output_diff": 0.0,
+      "equivalent": true,
+      "memory_savings_estimate": 0.6
+    },
+    "gradient_equivalence": {
+      "max_gradient_diff": 0.0,
+      "equivalent": true
+    }
+  },
+  "calm_analysis": {
+    "SimpleMLP": {
+      "total_modules": 1,
+      "monotone_count": 1,
+      "sync_count": 0,
+      "parallelism_ratio": 1.0,
+      "num_sync_barriers": 0,
+      "num_segments": 1
+    },
+    "SimpleCNN": {
+      "total_modules": 2,
+      "monotone_count": 2,
+      "sync_count": 0,
+      "parallelism_ratio": 1.0,
+      "num_sync_barriers": 0,
+      "num_segments": 1
+    },
+    "ResNetBlock": {
+      "total_modules": 3,
+      "monotone_count": 2,
+      "sync_count": 1,
+      "parallelism_ratio": 0.667,
+      "num_sync_barriers": 1,
+      "num_segments": 2
+    },
+    "TransformerBlock": {
+      "total_modules": 7,
+      "monotone_count": 7,
+      "sync_count": 0,
+      "parallelism_ratio": 1.0,
+      "num_sync_barriers": 0,
+      "num_segments": 1
+    },
+    "SimpleMLP_2_devices": {
+      "partitions": [
+        [
+          "net"
+        ],
+        []
+      ],
+      "partition_sizes": [
+        1,
+        0
+      ]
+    },
+    "SimpleMLP_4_devices": {
+      "partitions": [
+        [
+          "net"
+        ],
+        [],
+        [],
+        []
+      ],
+      "partition_sizes": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "SimpleCNN_2_devices": {
+      "partitions": [
+        [
+          "features",
+          "classifier"
+        ],
+        []
+      ],
+      "partition_sizes": [
+        2,
+        0
+      ]
+    },
+    "SimpleCNN_4_devices": {
+      "partitions": [
+        [
+          "features",
+          "classifier"
+        ],
+        [],
+        [],
+        []
+      ],
+      "partition_sizes": [
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    "ResNetBlock_2_devices": {
+      "partitions": [
+        [
+          "block1",
+          "block2",
+          "relu"
+        ],
+        []
+      ],
+      "partition_sizes": [
+        3,
+        0
+      ]
+    },
+    "ResNetBlock_4_devices": {
+      "partitions": [
+        [
+          "block1",
+          "block2",
+          "relu"
+        ],
+        [],
+        [],
+        []
+      ],
+      "partition_sizes": [
+        3,
+        0,
+        0,
+        0
+      ]
+    },
+    "TransformerBlock_2_devices": {
+      "partitions": [
+        [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "out_proj",
+          "norm1",
+          "norm2",
+          "ffn"
+        ],
+        []
+      ],
+      "partition_sizes": [
+        7,
+        0
+      ]
+    },
+    "TransformerBlock_4_devices": {
+      "partitions": [
+        [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "out_proj",
+          "norm1",
+          "norm2",
+          "ffn"
+        ],
+        [],
+        [],
+        []
+      ],
+      "partition_sizes": [
+        7,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "nas": {
+    "random_search": {
+      "num_architectures": 20,
+      "pareto_size": 2,
+      "best_erasure": {
+        "ops": [
+          "Linear",
+          "Linear",
+          "Identity",
+          "LeakyReLU",
+          "LeakyReLU"
+        ],
+        "erasure_score": 0.0,
+        "accuracy": 0.5552,
+        "s_count": 5,
+        "k_count": 0,
+        "parallelism_ratio": 1.0
+      },
+      "best_accuracy": {
+        "ops": [
+          "Linear",
+          "LayerNorm",
+          "Identity",
+          "ReLU",
+          "Linear"
+        ],
+        "erasure_score": 0.2,
+        "accuracy": 0.628,
+        "s_count": 4,
+        "k_count": 1,
+        "parallelism_ratio": 0.8
+      },
+      "wall_time_s": 0.07
+    },
+    "evolutionary_search": {
+      "num_architectures": 18,
+      "pareto_size": 2,
+      "best_erasure": {
+        "ops": [
+          "Linear",
+          "Identity",
+          "Linear",
+          "Softplus",
+          "Linear"
+        ],
+        "erasure_score": 0.0,
+        "accuracy": 0.5099,
+        "s_count": 5,
+        "k_count": 0,
+        "parallelism_ratio": 1.0
+      },
+      "best_accuracy": {
+        "ops": [
+          "Linear",
+          "Identity",
+          "Linear",
+          "Dropout",
+          "Linear"
+        ],
+        "erasure_score": 0.2,
+        "accuracy": 0.6132,
+        "s_count": 4,
+        "k_count": 1,
+        "parallelism_ratio": 0.8
+      },
+      "wall_time_s": 0.06
+    },
+    "comparison": {
+      "random_pareto_size": 2,
+      "evo_pareto_size": 2,
+      "random_best_erasure": 0.0,
+      "evo_best_erasure": 0.0
+    }
+  },
+  "provenance": {
+    "SimpleMLP": {
+      "num_nodes": 5,
+      "s_phases": 3,
+      "k_boundaries": 2,
+      "erasure_budget": 0.4,
+      "json_valid": true,
+      "json_keys": [
+        "erasure_budget",
+        "k_boundaries",
+        "nodes",
+        "s_phases"
+      ],
+      "dot_valid": true,
+      "dot_has_colors": true
+    },
+    "SimpleCNN": {
+      "num_nodes": 7,
+      "s_phases": 3,
+      "k_boundaries": 4,
+      "erasure_budget": 0.571,
+      "json_valid": true,
+      "json_keys": [
+        "erasure_budget",
+        "k_boundaries",
+        "nodes",
+        "s_phases"
+      ],
+      "dot_valid": true,
+      "dot_has_colors": true
+    },
+    "ResNetBlock": {
+      "num_nodes": 12,
+      "s_phases": 4,
+      "k_boundaries": 8,
+      "erasure_budget": 0.667,
+      "json_valid": true,
+      "json_keys": [
+        "erasure_budget",
+        "k_boundaries",
+        "nodes",
+        "s_phases"
+      ],
+      "dot_valid": true,
+      "dot_has_colors": true
+    },
+    "TransformerBlock": {
+      "num_nodes": 9,
+      "s_phases": 2,
+      "k_boundaries": 1,
+      "erasure_budget": 0.111,
+      "json_valid": true,
+      "json_keys": [
+        "erasure_budget",
+        "k_boundaries",
+        "nodes",
+        "s_phases"
+      ],
+      "dot_valid": true,
+      "dot_has_colors": true
+    }
+  },
+  "training": {
+    "standard": {
+      "final_loss": 1.0208,
+      "wall_time_s": 0.008,
+      "extra_metrics": []
+    },
+    "bwsk_standard": {
+      "final_loss": 1.0577,
+      "wall_time_s": 0.007,
+      "extra_metrics": [
+        "erasure_budget",
+        "estimated_memory_savings",
+        "loss",
+        "parallelism_ratio"
+      ]
+    },
+    "bwsk_reversible": {
+      "final_loss": 1.0283,
+      "wall_time_s": 0.008,
+      "extra_metrics": [
+        "erasure_budget",
+        "estimated_memory_savings",
+        "loss",
+        "parallelism_ratio"
+      ]
+    },
+    "analysis_summary": {
+      "erasure_budget": 0.4,
+      "memory_profile": {
+        "total_layers": 1,
+        "s_count": 1,
+        "k_count": 0,
+        "gray_count": 0,
+        "estimated_memory_savings": 1.0
+      },
+      "calm_analysis": {
+        "model_name": "SimpleMLP",
+        "total_modules": 1,
+        "monotone_count": 1,
+        "sync_count": 0,
+        "parallelism_ratio": 1.0,
+        "num_sync_barriers": 0,
+        "segments": [
+          {
+            "module_names": [
+              "net"
+            ],
+            "is_monotone": true,
+            "size": 1,
+            "classifications": [
+              "S"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "meta": {
+    "total_time_s": 0.62,
+    "python_version": "3.14.2 (main, Dec 17 2025, 21:08:09) [Clang 21.1.4 ]",
+    "torch_version": "2.10.0+cu128"
+  }
+}
