@@ -61,6 +61,14 @@ full-ci: ci rust-ci
 gpt2-benchmark:
     uv run python scripts/gpt2_benchmark.py
 
-# Run multi-model benchmark (BERT, GPT-2 Med, T5, OPT, Pythia)
+# Run multi-model benchmark (BERT, GPT-2 Med, T5, OPT, Pythia, Pythia-1B)
 multi-model-benchmark:
     uv run python scripts/multi_model_benchmark.py
+
+# Run Burn forward pass benchmark (release build)
+rust-bench:
+    cd rust && cargo run --example bench_forward --release
+
+# Run Python vs Rust cross-validation
+cross-validate:
+    uv run python scripts/rust_cross_validation.py
