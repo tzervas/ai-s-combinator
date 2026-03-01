@@ -83,9 +83,11 @@ Last updated: 2026-03-01
 | `ADR_006_reversible_backprop_calm.md` | Reversible backprop via S-phase checkpointing + CALM analysis | 2026-03-01 | Accepted | Phase 3 (training) |
 | `ADR_007_rust_port_strategy.md` | Two-crate Rust architecture with Burn ML framework | 2026-03-01 | Accepted | Phase 4 (Rust) |
 | `ADR_008_erasure_minimized_nas.md` | Evolutionary NAS with Pareto frontier for erasure vs accuracy | 2026-03-01 | Accepted | Phase 5 (NAS) |
+| `ADR_009_extended_benchmarks.md` | Extended benchmarks: 17 models, 4 experiment types | 2026-03-01 | Accepted | All phases |
+| `ADR_010_huggingface_publication.md` | HuggingFace publication strategy | 2026-03-01 | Accepted | All phases |
 | `ADR_TEMPLATE.md` | Template for new ADRs | — | Template | — |
 
-**Next ADR number**: ADR-009
+**Next ADR number**: ADR-011
 
 ---
 
@@ -142,6 +144,11 @@ Last updated: 2026-03-01
 | `gpt2_benchmark.py` | GPT-2 (124M) benchmark: BWSK vs conventional PyTorch | Generates `gpt2_benchmark_results.json` and `docs/GPT2_BENCHMARK_REPORT.md` |
 | `multi_model_benchmark.py` | Multi-model benchmark (BERT, GPT-2 Med, T5, OPT, Pythia-410M, Pythia-1B) | Generates per-model JSON + `docs/MULTI_MODEL_BENCHMARK_REPORT.md` |
 | `rust_cross_validation.py` | Python vs Rust classification cross-validation and Burn benchmarks | Generates `docs/RUST_CROSS_VALIDATION_REPORT.md` |
+| `extended_benchmark.py` | Extended benchmark: 17 models (scale sweep + architecture diversity) | Generates `docs/EXTENDED_BENCHMARK_REPORT.md` |
+| `convergence_experiment.py` | Convergence experiment: 1500 steps, 3 seeds, statistical analysis | Generates `docs/CONVERGENCE_REPORT.md` |
+| `memory_throughput_profiler.py` | Memory/throughput profiler: detailed breakdown per model | Generates `docs/MEMORY_THROUGHPUT_REPORT.md` |
+| `generate_whitepaper_figures.py` | Generate publication-quality figures from experiment data | Outputs to `docs/figures/` |
+| `upload_to_huggingface.py` | Upload benchmark datasets and fine-tuned models to HuggingFace | — |
 
 ## Generated Reports
 
@@ -154,3 +161,8 @@ Last updated: 2026-03-01
 | `docs/MULTI_MODEL_BENCHMARK_REPORT.md` | Multi-model benchmark: cross-architecture BWSK comparison | `scripts/multi_model_benchmark.py` |
 | `scripts/multi_model_benchmark_results.json` | Combined multi-model benchmark data (JSON) | `scripts/multi_model_benchmark.py` |
 | `docs/RUST_CROSS_VALIDATION_REPORT.md` | Python vs Rust classification parity and Burn benchmark results | `scripts/rust_cross_validation.py` |
+| `docs/EXTENDED_BENCHMARK_REPORT.md` | Extended benchmark: 17-model cross-architecture BWSK comparison | `scripts/extended_benchmark.py` |
+| `docs/CONVERGENCE_REPORT.md` | Statistical convergence analysis with paired t-tests and CIs | `scripts/convergence_experiment.py` |
+| `docs/MEMORY_THROUGHPUT_REPORT.md` | Memory breakdown and throughput scaling analysis | `scripts/memory_throughput_profiler.py` |
+| `docs/WHITEPAPER.md` | Scientific whitepaper: BWSK combinator-typed neural network analysis | Manual |
+| `docs/figures/` | Publication-quality figures for whitepaper | `scripts/generate_whitepaper_figures.py` |

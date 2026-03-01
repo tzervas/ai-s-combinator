@@ -72,3 +72,23 @@ rust-bench:
 # Run Python vs Rust cross-validation
 cross-validate:
     uv run python scripts/rust_cross_validation.py
+
+# Run extended benchmark (17 models: scale sweep + architecture diversity)
+extended-benchmark:
+    uv run python scripts/extended_benchmark.py
+
+# Run convergence experiment (1500 steps, 3 seeds, statistical analysis)
+convergence:
+    uv run python scripts/convergence_experiment.py
+
+# Run memory/throughput profiler
+profiler:
+    uv run python scripts/memory_throughput_profiler.py
+
+# Generate whitepaper figures from experiment results
+figures:
+    uv run python scripts/generate_whitepaper_figures.py
+
+# Upload results and models to HuggingFace
+upload-hf:
+    uv run python scripts/upload_to_huggingface.py

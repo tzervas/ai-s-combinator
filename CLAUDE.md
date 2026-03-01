@@ -302,6 +302,8 @@ ADRs (Architecture Decision Records) documenting key design choices.
 | ADR-006 | Reversible backprop via S-phase checkpointing + CALM analysis |
 | ADR-007 | Two-crate Rust architecture with Burn ML framework |
 | ADR-008 | Erasure-minimized NAS with Pareto frontier |
+| ADR-009 | Extended benchmarks: 17 models, 4 experiment types |
+| ADR-010 | HuggingFace publication strategy |
 
 Use `docs/architecture/ADR_TEMPLATE.md` for new ADRs.
 
@@ -340,7 +342,7 @@ Background research documents from the S-combinator project.
 | 4 | Rust Crate + Burn Integration | Rust, CubeCL | 8-12 weeks |
 | 5 | Erasure-Minimized NAS | Python | 12+ weeks |
 
-**Current status**: All 5 phases complete. 152 Python tests passing, 29 Rust tests passing. Full CI green.
+**Current status**: All 5 phases complete. Extended benchmark infrastructure ready. 152 Python tests passing, 29 Rust tests passing. Full CI green. GitHub repo public. HuggingFace upload scripts ready.
 
 - **Phase 1** (S/K Classifier): classify_operation, classify_model, 70+ op database, torch.fx tracing, per_layer_summary, BWSK primitives, provenance tracker, training loop
 - **Phase 2** (DSL + Provenance): nn.Module wrappers (BModule/WModule/SModule/KModule), >> pipeline operator, forward hook provenance, to_json/to_graphviz, architecture examples (MLP, residual, attention)
