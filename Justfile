@@ -24,8 +24,12 @@ test-cov:
 typecheck:
     uv run pyright src/
 
-# Run security scanning
-security-scan:
+# Run gitleaks scan
+gitleaks:
+    gitleaks detect --config .gitleaks.toml --verbose
+
+# Run security scanning (gitleaks + detect-secrets + pip-audit)
+security-scan: gitleaks
     bash scripts/security-scan.sh
 
 # Full Python CI pipeline

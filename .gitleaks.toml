@@ -1,0 +1,16 @@
+# Gitleaks configuration for BWSK project
+# https://github.com/gitleaks/gitleaks
+
+title = "BWSK Gitleaks Config"
+
+[allowlist]
+  description = "Global allowlist"
+  paths = [
+    '''\.venv/''',
+    '''__pycache__/''',
+    '''rust/target/''',
+    '''\.pytest_cache/''',
+    '''\.ruff_cache/''',
+    '''uv\.lock''',
+    '''rust/Cargo\.lock''',
+  ]
