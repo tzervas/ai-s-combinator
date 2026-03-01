@@ -79,9 +79,13 @@ Last updated: 2026-03-01
 | `ADR_002_python_first_rust_later.md` | Python Phases 1-3, Rust Phase 4 | 2026-03-01 | Accepted | All phases |
 | `ADR_003_torch_fx_for_tracing.md` | torch.fx symbolic tracing for graph extraction | 2026-02-28 | Accepted | Phase 1 (classifier) |
 | `ADR_004_classification_confidence_scoring.md` | 4-tier confidence: 1.0/0.8/0.5/0.3 | 2026-02-28 | Accepted | Phase 1 (classifier) |
+| `ADR_005_nn_module_primitives.md` | BWSK primitives as nn.Module with >> operator | 2026-03-01 | Accepted | Phase 2 (DSL) |
+| `ADR_006_reversible_backprop_calm.md` | Reversible backprop via S-phase checkpointing + CALM analysis | 2026-03-01 | Accepted | Phase 3 (training) |
+| `ADR_007_rust_port_strategy.md` | Two-crate Rust architecture with Burn ML framework | 2026-03-01 | Accepted | Phase 4 (Rust) |
+| `ADR_008_erasure_minimized_nas.md` | Evolutionary NAS with Pareto frontier for erasure vs accuracy | 2026-03-01 | Accepted | Phase 5 (NAS) |
 | `ADR_TEMPLATE.md` | Template for new ADRs | — | Template | — |
 
-**Next ADR number**: ADR-005
+**Next ADR number**: ADR-009
 
 ---
 
@@ -103,10 +107,14 @@ Last updated: 2026-03-01
 | File | Purpose | Implementation Status | Tests | Spec |
 |------|---------|-----------------------|-------|------|
 | `__init__.py` | Package init, version | Done | — | — |
-| `classify.py` | S/K operation classifier | **Done**: classify_operation, classify_model, DB, torch.fx tracing, ErasureBudgetReport | 56 passing | SPEC-001 |
-| `primitives.py` | B, W, S, K combinators | **Stub**: raises NotImplementedError | 4 skipped | SPEC-002 |
-| `provenance.py` | Provenance tracking | **Partial**: dataclasses done, tracker.track() not implemented | 4 passing, 1 skipped | SPEC-003 |
-| `training.py` | BWSK-aware training loop | **Stub**: raises NotImplementedError | 2 skipped | — |
+| `classify.py` | S/K operation classifier | **Done**: classify_operation, classify_model, DB (70+ ops), torch.fx tracing, ErasureBudgetReport, per_layer_summary | 69 passing | SPEC-001 |
+| `primitives.py` | B, W, S, K combinators | **Done**: pure callables + nn.Module wrappers, >> pipeline operator, classification property | 19 passing | SPEC-002 |
+| `provenance.py` | Provenance tracking | **Done**: dataclasses, tracker.track(), forward hooks, to_json(), to_graphviz() | 19 passing | SPEC-003 |
+| `training.py` | BWSK-aware training loop | **Done**: BWSKTrainer with reversible mode, memory/CALM analysis | 9 passing | — |
+| `examples.py` | Architecture examples in BWSK DSL | **Done**: MLP, residual block, attention head | 13 passing | SPEC-002, SPEC-004 |
+| `reversible.py` | Reversible backprop via S-phase checkpointing | **Done**: ReversibleSequence, checkpoint_k_boundaries, memory profiling | 10 passing | — |
+| `calm.py` | CALM monotone analysis and distribution partitioning | **Done**: analyze_calm, partition_for_distribution | 8 passing | — |
+| `nas.py` | Erasure-minimized Neural Architecture Search | **Done**: random + evolutionary search, Pareto frontier, gene encoding | 13 passing | — |
 
 ---
 
@@ -115,7 +123,8 @@ Last updated: 2026-03-01
 | Spec | Source File | Test File | User Stories |
 |------|-----------|-----------|-------------|
 | SPEC-001 | `classify.py` | `test_classify.py` | US-01, US-02, US-03, US-08 |
-| SPEC-002 | `primitives.py` | `test_primitives.py` | US-04, US-05, US-06 |
+| SPEC-002 | `primitives.py`, `examples.py` | `test_primitives.py`, `test_examples.py` | US-04, US-05, US-06 |
 | SPEC-003 | `provenance.py` | `test_provenance.py` | US-07, US-08, US-09 |
-| SPEC-004 | *(not yet created)* | *(not yet created)* | US-04, US-05, US-10, US-11, US-12, US-13 |
-| SPEC-005 | `rust/bwsk-core/`, `rust/bwsk-burn/` | *(Rust tests)* | US-14, US-15 |
+| SPEC-004 | `reversible.py`, `calm.py` | `test_reversible.py`, `test_calm.py` | US-10, US-11, US-12, US-13 |
+| SPEC-005 | `rust/bwsk-core/`, `rust/bwsk-burn/` | Rust `#[cfg(test)]` modules | US-14, US-15 |
+| — | `nas.py` | `test_nas.py` | — |
