@@ -1,0 +1,529 @@
+{
+  "model_name": "OPT-350M",
+  "hf_id": "facebook/opt-350m",
+  "arch_type": "causal_lm",
+  "params_m": 331,
+  "batch_size": 2,
+  "seq_len": 512,
+  "device": "NVIDIA GeForce RTX 5080",
+  "timestamp": "2026-03-01 15:35:05",
+  "classification": {
+    "total_modules": 221,
+    "s_count": 197,
+    "k_count": 24,
+    "gray_count": 0,
+    "s_ratio": 0.8914027149321267,
+    "k_ratio": 0.1085972850678733,
+    "gray_ratio": 0.0,
+    "per_block": [
+      {
+        "block_idx": 0,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 1,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 2,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 3,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 4,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 5,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 6,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 7,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 8,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 9,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 10,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 11,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 12,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 13,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 14,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 15,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 16,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 17,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 18,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 19,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 20,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 21,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 22,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      },
+      {
+        "block_idx": 23,
+        "section": "decoder",
+        "s_count": 8,
+        "k_count": 1,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.8888888888888888
+      }
+    ]
+  },
+  "evaluation": {
+    "metric_name": "perplexity",
+    "value": 20.88724136352539,
+    "value_with_provenance": 20.88724136352539,
+    "baseline_time_s": 6.300661388988374,
+    "provenance_time_s": 6.515952449000906,
+    "provenance_overhead_s": 0.2152910600125324,
+    "provenance_s_phases": 13465,
+    "provenance_k_boundaries": 13464,
+    "provenance_erasure_budget": 0.1085972850678733
+  },
+  "finetune_conventional": {
+    "mode": "conventional",
+    "final_loss": 3.675133466720581,
+    "eval_metric": NaN,
+    "wall_time_s": 3.3240766120143235,
+    "peak_memory_mb": 3862.47509765625,
+    "loss_curve": [
+      3.675133466720581
+    ],
+    "erasure_budget": 0.0,
+    "parallelism_ratio": 0.0
+  },
+  "finetune_bwsk_analyzed": {
+    "mode": "bwsk_analyzed",
+    "final_loss": 3.6868886947631836,
+    "eval_metric": NaN,
+    "wall_time_s": 3.318746929988265,
+    "peak_memory_mb": 3862.60400390625,
+    "loss_curve": [
+      3.6868886947631836
+    ],
+    "erasure_budget": 0.1085972850678733,
+    "parallelism_ratio": 0.8914027149321267
+  },
+  "finetune_bwsk_reversible": {
+    "mode": "bwsk_reversible",
+    "final_loss": 3.6859829425811768,
+    "eval_metric": NaN,
+    "wall_time_s": 3.5772116520092823,
+    "peak_memory_mb": 3179.63720703125,
+    "loss_curve": [
+      3.6859829425811768
+    ],
+    "erasure_budget": 0.1085972850678733,
+    "parallelism_ratio": 0.8914027149321267
+  },
+  "calm_blocks": [
+    {
+      "block_idx": 0,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 1,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 2,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 3,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 4,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 5,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 6,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 7,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 8,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 9,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 10,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 11,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 12,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 13,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 14,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 15,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 16,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 17,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 18,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 19,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 20,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 21,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 22,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    },
+    {
+      "block_idx": 23,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 4,
+      "sync_count": 2,
+      "parallelism_ratio": 0.6666666666666666,
+      "num_sync_barriers": 2
+    }
+  ],
+  "calm_partition_2": [
+    [
+      "self_attn",
+      "self_attn_layer_norm",
+      "fc1",
+      "fc2",
+      "final_layer_norm"
+    ],
+    [
+      "activation_fn"
+    ]
+  ],
+  "calm_partition_4": [
+    [
+      "self_attn"
+    ],
+    [
+      "activation_fn"
+    ],
+    [
+      "self_attn_layer_norm",
+      "fc1",
+      "fc2",
+      "final_layer_norm"
+    ],
+    []
+  ]
+}

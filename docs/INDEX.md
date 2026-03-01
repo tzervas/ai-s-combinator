@@ -140,6 +140,7 @@ Last updated: 2026-03-01
 | `security-scan.sh` | Security scanning (gitleaks, detect-secrets, pip-audit) | Used by `just security-scan` |
 | `validate_and_compare.py` | End-to-end BWSK validation and PyTorch comparison | Generates `validation_results.json` and `docs/VALIDATION_REPORT.md` |
 | `gpt2_benchmark.py` | GPT-2 (124M) benchmark: BWSK vs conventional PyTorch | Generates `gpt2_benchmark_results.json` and `docs/GPT2_BENCHMARK_REPORT.md` |
+| `multi_model_benchmark.py` | Multi-model benchmark (BERT, GPT-2 Med, T5, OPT, Pythia) | Generates per-model JSON + `docs/MULTI_MODEL_BENCHMARK_REPORT.md` |
 
 ## Generated Reports
 
@@ -149,3 +150,5 @@ Last updated: 2026-03-01
 | `scripts/validation_results.json` | Raw validation data (JSON) | `scripts/validate_and_compare.py` |
 | `docs/GPT2_BENCHMARK_REPORT.md` | GPT-2 benchmark: classification, perplexity, fine-tuning, memory, CALM | `scripts/gpt2_benchmark.py` |
 | `scripts/gpt2_benchmark_results.json` | Raw GPT-2 benchmark data (JSON) | `scripts/gpt2_benchmark.py` |
+| `docs/MULTI_MODEL_BENCHMARK_REPORT.md` | Multi-model benchmark: cross-architecture BWSK comparison | `scripts/multi_model_benchmark.py` |
+| `scripts/multi_model_benchmark_results.json` | Combined multi-model benchmark data (JSON) | `scripts/multi_model_benchmark.py` |

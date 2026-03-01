@@ -60,3 +60,7 @@ full-ci: ci rust-ci
 # Run GPT-2 benchmark (BWSK vs conventional PyTorch)
 gpt2-benchmark:
     uv run python scripts/gpt2_benchmark.py
+
+# Run multi-model benchmark (BERT, GPT-2 Med, T5, OPT, Pythia)
+multi-model-benchmark:
+    uv run python scripts/multi_model_benchmark.py
