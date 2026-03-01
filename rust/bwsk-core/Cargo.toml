@@ -1,0 +1,6 @@
+[package]
+name = "bwsk-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core BWSK combinator primitives and S/K classification"
+license = "MIT"

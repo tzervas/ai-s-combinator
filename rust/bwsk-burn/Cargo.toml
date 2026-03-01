@@ -1,0 +1,9 @@
+[package]
+name = "bwsk-burn"
+version = "0.1.0"
+edition = "2021"
+description = "BWSK integration with Burn ML framework (CubeCL GPU backend)"
+license = "MIT"
+
+[dependencies]
+bwsk-core = { path = "../bwsk-core" }

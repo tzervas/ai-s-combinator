@@ -1,0 +1,3 @@
+[workspace]
+members = ["bwsk-core", "bwsk-burn"]
+resolver = "2"

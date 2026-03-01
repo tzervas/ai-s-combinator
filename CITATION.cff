@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "BWSK: Combinator-Typed AI Primitives"
+type: software
+authors:
+  - name: "Tyler Zervas"
+license: MIT
+repository-code: "https://github.com/tzervas/ai-s-combinator"
+abstract: >-
+  A framework that uses combinator logic (B, W, S, K) as a typed
+  architectural description language for neural networks, providing
+  compile-time guarantees about information flow, reversibility,
+  and parallelism while executing on standard tensor hardware.
+keywords:
+  - combinator-logic
+  - neural-networks
+  - information-flow
+  - reversible-computing
+  - provenance
+date-released: "2026-03-01"
