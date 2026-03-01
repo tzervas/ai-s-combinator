@@ -7,3 +7,4 @@ license = "MIT"
 
 [dependencies]
 bwsk-core = { path = "../bwsk-core" }
+burn = { version = "0.20", features = ["ndarray"] }
