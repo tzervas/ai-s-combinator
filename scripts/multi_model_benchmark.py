@@ -24,7 +24,7 @@ Usage:
 
 from __future__ import annotations
 
-import gc
+import argparse
 import json
 import sys
 import time
@@ -254,19 +254,7 @@ class ModelResults:
 # ---------------------------------------------------------------------------
 
 
-def reset_memory() -> None:
-    """Reset GPU memory tracking."""
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-        torch.cuda.reset_peak_memory_stats()
-
-
-def peak_memory_mb() -> float:
-    """Get peak GPU memory in MB."""
-    if torch.cuda.is_available():
-        return torch.cuda.max_memory_allocated() / (1024 * 1024)
-    return 0.0
+from bench_utils import peak_memory_mb, reset_memory
 
 
 def classify_leaf_modules(
@@ -464,7 +452,9 @@ def eval_causal_lm(
                 break
 
     wall = time.perf_counter() - start
-    ppl = torch.exp(torch.tensor(nlls).mean()).item() if nlls else float("nan")
+    mean_nll = torch.tensor(nlls).mean() if nlls else torch.tensor(float("nan"))
+    # Clamp to avoid overflow in exp() — perplexity > exp(20) ≈ 485M is meaningless
+    ppl = torch.exp(mean_nll.clamp(max=20.0)).item()
     return ppl, wall, tracker
 
 
@@ -516,7 +506,9 @@ def eval_masked_lm(
                 nlls.append(loss_val)
 
     wall = time.perf_counter() - start
-    ppl = torch.exp(torch.tensor(nlls).mean()).item() if nlls else float("nan")
+    mean_nll = torch.tensor(nlls).mean() if nlls else torch.tensor(float("nan"))
+    # Clamp to avoid overflow in exp() — perplexity > exp(20) ≈ 485M is meaningless
+    ppl = torch.exp(mean_nll.clamp(max=20.0)).item()
     return ppl, wall, tracker
 
 
@@ -559,7 +551,9 @@ def eval_seq2seq(
                 nlls.append(loss_val)
 
     wall = time.perf_counter() - start
-    ppl = torch.exp(torch.tensor(nlls).mean()).item() if nlls else float("nan")
+    mean_nll = torch.tensor(nlls).mean() if nlls else torch.tensor(float("nan"))
+    # Clamp to avoid overflow in exp() — perplexity > exp(20) ≈ 485M is meaningless
+    ppl = torch.exp(mean_nll.clamp(max=20.0)).item()
     return ppl, wall, tracker
 
 
@@ -638,6 +632,11 @@ def prepare_batches(
     train_text = load_wikitext("train")
 
     max_tokens = config.seq_len * config.batch_size * FINETUNE_STEPS * 2
+    # Temporarily override model_max_length to avoid premature truncation.
+    # Some tokenizers (OPT, Pythia) have model_max_length=2048 which would
+    # limit us to 1-2 batches. We handle chunking ourselves below.
+    saved_max_len = getattr(tokenizer, "model_max_length", max_tokens)
+    tokenizer.model_max_length = max(max_tokens, saved_max_len)
     encodings = tokenizer(
         train_text,
         return_tensors="pt",
@@ -645,6 +644,7 @@ def prepare_batches(
         max_length=max_tokens,
         add_special_tokens=False,
     )
+    tokenizer.model_max_length = saved_max_len
     all_ids = encodings.input_ids[0]
 
     batches = []
@@ -772,6 +772,11 @@ def finetune_one_mode(
     # bf16 mixed precision for 300M+ models to reduce numerical errors
     # and memory usage while maintaining fp32-equivalent dynamic range.
     use_amp = DEVICE.type == "cuda" and config.params_m >= 300
+
+    # Ensure float32 when not using AMP — some HF models load in bf16/fp16
+    # natively, causing NaN after the first optimizer step.
+    if not use_amp:
+        model = model.float()
 
     model.train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.finetune_lr)
@@ -1271,8 +1276,38 @@ def generate_full_report(all_results: list[ModelResults]) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _slug(name: str) -> str:
+    """Convert model name to URL-safe slug for --models filtering."""
+    return name.lower().replace(" ", "-")
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Multi-model benchmark: BWSK vs conventional PyTorch",
+    )
+    parser.add_argument(
+        "--models",
+        type=str,
+        default="",
+        help="Comma-separated model slugs to run (default: all)",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
     """Run the full multi-model benchmark."""
+    args = parse_args()
+
+    models = MODELS
+    if args.models:
+        slugs = {s.strip() for s in args.models.split(",")}
+        models = [m for m in MODELS if _slug(m.name) in slugs]
+        if not models:
+            print(f"ERROR: No models found for slugs: {slugs}")
+            print(f"Available: {', '.join(_slug(m.name) for m in MODELS)}")
+            sys.exit(1)
+
     print("=" * 70)
     print("Multi-Model Benchmark: BWSK vs Conventional PyTorch")
     print("=" * 70)
@@ -1280,8 +1315,8 @@ def main() -> None:
     if torch.cuda.is_available():
         print(f"GPU: {torch.cuda.get_device_name()}")
         print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
-    print(f"Models: {len(MODELS)}")
-    for cfg in MODELS:
+    print(f"Models: {len(models)}")
+    for cfg in models:
         print(f"  - {cfg.name} ({cfg.params_m}M, {cfg.arch_type})")
 
     # Load dataset once
@@ -1290,9 +1325,9 @@ def main() -> None:
 
     all_results: list[ModelResults] = []
 
-    for i, config in enumerate(MODELS):
+    for i, config in enumerate(models):
         print(f"\n{'#' * 70}")
-        print(f"# MODEL {i + 1}/{len(MODELS)}: {config.name}")
+        print(f"# MODEL {i + 1}/{len(models)}: {config.name}")
         print(f"{'#' * 70}")
 
         try:
@@ -1337,7 +1372,7 @@ def main() -> None:
         combined_path.write_text(json.dumps(combined_data, indent=2, default=str))
         print(f"Combined data written to: {combined_path}")
 
-    print(f"\nBenchmark complete! {len(all_results)}/{len(MODELS)} models succeeded.")
+    print(f"\nBenchmark complete! {len(all_results)}/{len(models)} models succeeded.")
 
 
 if __name__ == "__main__":

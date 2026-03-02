@@ -1,0 +1,76 @@
+{
+  "model_name": "Pythia-1B",
+  "slug": "pythia-1b",
+  "params_m": 1010,
+  "arch_family": "transformer",
+  "device": "NVIDIA GeForce RTX 5080",
+  "timestamp": "2026-03-01 23:33:33",
+  "profiles": [
+    {
+      "mode": "conventional",
+      "memory": {
+        "params_mb": 1929.8203125,
+        "grads_mb": 0.0,
+        "optimizer_mb": 3859.641372680664,
+        "activations_mb": 5248.093002319336,
+        "total_peak_mb": 11037.5546875
+      },
+      "timing": {
+        "forward_time_s": 0.021004502102732657,
+        "backward_time_s": 0.033267272054217756,
+        "optimizer_step_s": 0.0744108100188896,
+        "total_step_s": 0.12868258417584003
+      },
+      "memory_timeline": [
+        9845.36083984375
+      ],
+      "throughput": 442.17859114266116,
+      "throughput_unit": "tokens/sec",
+      "num_steps": 50
+    },
+    {
+      "mode": "bwsk_analyzed",
+      "memory": {
+        "params_mb": 1929.8203125,
+        "grads_mb": 0.0,
+        "optimizer_mb": 3859.641372680664,
+        "activations_mb": 5248.968002319336,
+        "total_peak_mb": 11038.4296875
+      },
+      "timing": {
+        "forward_time_s": 0.021013386741979046,
+        "backward_time_s": 0.03351698303595185,
+        "optimizer_step_s": 0.0738623320357874,
+        "total_step_s": 0.1283927018137183
+      },
+      "memory_timeline": [
+        9845.36083984375
+      ],
+      "throughput": 442.1230481468004,
+      "throughput_unit": "tokens/sec",
+      "num_steps": 50
+    },
+    {
+      "mode": "bwsk_reversible",
+      "memory": {
+        "params_mb": 1929.8203125,
+        "grads_mb": 0.0,
+        "optimizer_mb": 3859.641372680664,
+        "activations_mb": 3927.899154663086,
+        "total_peak_mb": 9717.36083984375
+      },
+      "timing": {
+        "forward_time_s": 0.02070405166479759,
+        "backward_time_s": 0.046927794988732785,
+        "optimizer_step_s": 0.07443888403940946,
+        "total_step_s": 0.14207073069293985
+      },
+      "memory_timeline": [
+        9717.36083984375
+      ],
+      "throughput": 442.6885762085469,
+      "throughput_unit": "tokens/sec",
+      "num_steps": 50
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "model_name": "Pythia-70M",
+  "slug": "pythia-70m",
+  "hf_id": "EleutherAI/pythia-70m",
+  "arch_family": "transformer",
+  "arch_type": "causal_lm",
+  "params_m": 70,
+  "batch_size": 8,
+  "seq_len": 512,
+  "dataset": "wikitext",
+  "device": "NVIDIA GeForce RTX 5080",
+  "timestamp": "2026-03-01 17:17:31",
+  "classification": {
+    "total_modules": 59,
+    "s_count": 40,
+    "k_count": 19,
+    "gray_count": 0,
+    "s_ratio": 0.6779661016949152,
+    "k_ratio": 0.3220338983050847,
+    "gray_ratio": 0.0,
+    "per_block": [
+      {
+        "block_idx": 0,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 1,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 2,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 3,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 4,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 5,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      }
+    ]
+  },
+  "evaluation": {
+    "metric_name": "perplexity",
+    "value": 44.652706146240234,
+    "value_with_provenance": 44.652706146240234,
+    "baseline_time_s": 1.935075480985688,
+    "provenance_time_s": 1.9715705119888298,
+    "provenance_overhead_s": 0.036495031003141776,
+    "provenance_s_phases": 7320,
+    "provenance_k_boundaries": 7319,
+    "provenance_erasure_budget": 0.22033898305084745
+  },
+  "finetune_conventional": {
+    "mode": "conventional",
+    "final_loss": 4.348470211029053,
+    "eval_metric": NaN,
+    "wall_time_s": 2.7230898659909144,
+    "peak_memory_mb": 3967.31201171875,
+    "loss_curve": [
+      4.348470211029053
+    ],
+    "nan_count": 299,
+    "erasure_budget": 0.0,
+    "parallelism_ratio": 0.0
+  },
+  "finetune_bwsk_analyzed": {
+    "mode": "bwsk_analyzed",
+    "final_loss": 4.348470211029053,
+    "eval_metric": NaN,
+    "wall_time_s": 2.6842505570093635,
+    "peak_memory_mb": 3966.81201171875,
+    "loss_curve": [
+      4.348470211029053
+    ],
+    "nan_count": 299,
+    "erasure_budget": 0.3220338983050847,
+    "parallelism_ratio": 0.6779661016949152
+  },
+  "finetune_bwsk_reversible": {
+    "mode": "bwsk_reversible",
+    "final_loss": 4.348470211029053,
+    "eval_metric": NaN,
+    "wall_time_s": 2.677617018984165,
+    "peak_memory_mb": 3243.30810546875,
+    "loss_curve": [
+      4.348470211029053
+    ],
+    "nan_count": 299,
+    "erasure_budget": 0.3220338983050847,
+    "parallelism_ratio": 0.6779661016949152
+  },
+  "calm_blocks": [
+    {
+      "block_idx": 0,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 1,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 2,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 3,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 4,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 5,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    }
+  ],
+  "calm_partition_2": [
+    [
+      "input_layernorm",
+      "post_attention_layernorm",
+      "post_attention_dropout",
+      "attention"
+    ],
+    [
+      "post_mlp_dropout",
+      "mlp"
+    ]
+  ],
+  "calm_partition_4": [
+    [
+      "input_layernorm",
+      "post_attention_layernorm",
+      "post_attention_dropout"
+    ],
+    [
+      "post_mlp_dropout"
+    ],
+    [
+      "attention"
+    ],
+    [
+      "mlp"
+    ]
+  ],
+  "skipped_finetune": false,
+  "skipped_reason": ""
+}

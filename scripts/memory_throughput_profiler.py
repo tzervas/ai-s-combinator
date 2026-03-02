@@ -17,7 +17,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import gc
 import json
 import sys
 import time
@@ -226,19 +225,7 @@ class ModelProfile:
 # ---------------------------------------------------------------------------
 
 
-def reset_memory() -> None:
-    """Reset GPU memory tracking."""
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-        torch.cuda.reset_peak_memory_stats()
-
-
-def peak_memory_mb() -> float:
-    """Get peak GPU memory in MB."""
-    if torch.cuda.is_available():
-        return torch.cuda.max_memory_allocated() / (1024 * 1024)
-    return 0.0
+from bench_utils import peak_memory_mb, reset_memory
 
 
 def current_memory_mb() -> float:
@@ -349,6 +336,18 @@ def load_model(config: ProfileModelConfig) -> tuple:
             model.fc = nn.Linear(model.fc.in_features, 10)
         return model.to(DEVICE), None
     elif config.arch_type == "ssm_lm":
+        # Patch mamba_ssm 2.x for transformers 5.x compatibility
+        try:
+            import mamba_ssm
+
+            if not hasattr(mamba_ssm, "selective_state_update"):
+                from mamba_ssm.ops.triton.selective_state_update import (
+                    selective_state_update,
+                )
+
+                mamba_ssm.selective_state_update = selective_state_update
+        except ImportError:
+            pass
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         tokenizer = AutoTokenizer.from_pretrained(config.hf_id)
@@ -392,6 +391,10 @@ def profile_one_mode(
             model.config.use_cache = False
 
     use_amp = DEVICE.type == "cuda" and config.params_m >= 300
+
+    # Ensure float32 when not using AMP (some HF models load in bf16)
+    if not use_amp:
+        model = model.float()
 
     model.train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.finetune_lr)

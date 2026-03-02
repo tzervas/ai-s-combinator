@@ -149,6 +149,22 @@ Last updated: 2026-03-01
 | `memory_throughput_profiler.py` | Memory/throughput profiler: detailed breakdown per model | Generates `docs/MEMORY_THROUGHPUT_REPORT.md` |
 | `generate_whitepaper_figures.py` | Generate publication-quality figures from experiment data | Outputs to `docs/figures/` |
 | `upload_to_huggingface.py` | Upload benchmark datasets and fine-tuned models to HuggingFace | — |
+| `bench_utils.py` | Shared utilities: VRAM estimation, memory helpers, calibration | Used by gpu_scheduler and benchmark scripts |
+| `gpu_scheduler.py` | VRAM-aware GPU task scheduler with bin-packing | CLI: `--schedule-only`, `--calibrate`, `--all` |
+
+## Tests (`tests/`)
+
+| File | Purpose | Tests |
+|------|---------|-------|
+| `test_classify.py` | S/K classifier tests | 69 |
+| `test_primitives.py` | BWSK combinator tests | 19 |
+| `test_provenance.py` | Provenance tracking tests | 19 |
+| `test_training.py` | Training loop tests | 9 |
+| `test_examples.py` | Architecture example tests | 13 |
+| `test_reversible.py` | Reversible backprop tests | 10 |
+| `test_calm.py` | CALM analysis tests | 8 |
+| `test_nas.py` | NAS tests | 13 |
+| `test_gpu_scheduler.py` | VRAM estimation and scheduler tests | 20 |
 
 ## Generated Reports
 
@@ -164,5 +180,10 @@ Last updated: 2026-03-01
 | `docs/EXTENDED_BENCHMARK_REPORT.md` | Extended benchmark: 17-model cross-architecture BWSK comparison | `scripts/extended_benchmark.py` |
 | `docs/CONVERGENCE_REPORT.md` | Statistical convergence analysis with paired t-tests and CIs | `scripts/convergence_experiment.py` |
 | `docs/MEMORY_THROUGHPUT_REPORT.md` | Memory breakdown and throughput scaling analysis | `scripts/memory_throughput_profiler.py` |
-| `docs/WHITEPAPER.md` | Scientific whitepaper: BWSK combinator-typed neural network analysis | Manual |
-| `docs/figures/` | Publication-quality figures for whitepaper | `scripts/generate_whitepaper_figures.py` |
+| `docs/WHITEPAPER.md` | Scientific whitepaper with complete empirical results (17 models, 5 families) | Manual + benchmark data |
+| `docs/figures/` | 8 publication-quality figures for whitepaper | `scripts/generate_whitepaper_figures.py` |
+| `scripts/vram_calibration.json` | Measured peak VRAM for 16 models (calibrates scheduler) | `scripts/gpu_scheduler.py --calibrate` |
+| `scripts/extended_*_results.json` | Per-model extended benchmark results (17 files + combined) | `scripts/extended_benchmark.py` |
+| `scripts/convergence_*_results.json` | Per-model convergence results (4 files + combined) | `scripts/convergence_experiment.py` |
+| `scripts/memory_throughput_results.json` | Memory profiler results (7 models, 3 modes) | `scripts/memory_throughput_profiler.py` |
+| `scripts/profile_*_results.json` | Per-model memory profiler results (7 files) | `scripts/memory_throughput_profiler.py` |

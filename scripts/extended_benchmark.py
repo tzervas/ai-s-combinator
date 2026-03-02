@@ -22,7 +22,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import gc
 import json
 import sys
 import time
@@ -351,8 +350,8 @@ ARCH_DIVERSITY_MODELS: list[ExtendedModelConfig] = [
         arch_type="ssm_lm",
         hf_id="state-spaces/mamba-130m-hf",
         params_m=130,
-        batch_size=4,
-        seq_len=512,
+        batch_size=2,
+        seq_len=256,
         dataset="wikitext",
         block_paths=[("backbone", "backbone.layers")],
         finetune_lr=3e-5,
@@ -365,8 +364,8 @@ ARCH_DIVERSITY_MODELS: list[ExtendedModelConfig] = [
         arch_type="ssm_lm",
         hf_id="state-spaces/mamba-370m-hf",
         params_m=370,
-        batch_size=2,
-        seq_len=512,
+        batch_size=1,
+        seq_len=256,
         dataset="wikitext",
         block_paths=[("backbone", "backbone.layers")],
         finetune_lr=2e-5,
@@ -379,8 +378,8 @@ ARCH_DIVERSITY_MODELS: list[ExtendedModelConfig] = [
         arch_type="seq2seq",
         hf_id="google/switch-base-8",
         params_m=220,
-        batch_size=2,
-        seq_len=512,
+        batch_size=1,
+        seq_len=256,
         dataset="wikitext",
         block_paths=[
             ("encoder", "encoder.block"),
@@ -500,19 +499,7 @@ class ModelResults:
 # ---------------------------------------------------------------------------
 
 
-def reset_memory() -> None:
-    """Reset GPU memory tracking."""
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-        torch.cuda.reset_peak_memory_stats()
-
-
-def peak_memory_mb() -> float:
-    """Get peak GPU memory in MB."""
-    if torch.cuda.is_available():
-        return torch.cuda.max_memory_allocated() / (1024 * 1024)
-    return 0.0
+from bench_utils import peak_memory_mb, reset_memory
 
 
 def classify_leaf_modules(
@@ -577,14 +564,35 @@ def load_text_model(
     return model.to(DEVICE), tokenizer
 
 
+def _patch_mamba_ssm() -> None:
+    """Patch mamba_ssm to re-export functions at paths transformers expects.
+
+    mamba_ssm 2.x moved selective_state_update to ops.triton submodule,
+    but transformers 5.x expects it at the top-level mamba_ssm namespace.
+    """
+    try:
+        import mamba_ssm
+
+        if not hasattr(mamba_ssm, "selective_state_update"):
+            from mamba_ssm.ops.triton.selective_state_update import (
+                selective_state_update,
+            )
+
+            mamba_ssm.selective_state_update = selective_state_update
+    except ImportError:
+        pass
+
+
 def load_ssm_model(
     config: ExtendedModelConfig,
 ) -> tuple[nn.Module, object]:
     """Load a Mamba SSM model using the HuggingFace -hf variant.
 
     Uses AutoModelForCausalLM which handles MambaForCausalLM automatically
-    when the model config specifies model_type='mamba'.
+    when the model config specifies model_type='mamba'. Applies a
+    compatibility patch for mamba_ssm 2.x before loading.
     """
+    _patch_mamba_ssm()
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     tokenizer = AutoTokenizer.from_pretrained(config.hf_id)
@@ -632,9 +640,9 @@ def load_vit_model(
     Configures for 10-class CIFAR-10. Uses ViTForImageClassification with
     ignore_mismatched_sizes to handle the head replacement.
     """
-    from transformers import ViTFeatureExtractor, ViTForImageClassification
+    from transformers import ViTForImageClassification, ViTImageProcessor
 
-    feature_extractor = ViTFeatureExtractor.from_pretrained(config.hf_id)
+    feature_extractor = ViTImageProcessor.from_pretrained(config.hf_id)
     model = ViTForImageClassification.from_pretrained(
         config.hf_id,
         num_labels=10,
@@ -804,7 +812,9 @@ def eval_causal_lm(
                 break
 
     wall = time.perf_counter() - start
-    ppl = torch.exp(torch.tensor(nlls).mean()).item() if nlls else float("nan")
+    mean_nll = torch.tensor(nlls).mean() if nlls else torch.tensor(float("nan"))
+    # Clamp to avoid overflow in exp() — perplexity > exp(20) ≈ 485M is meaningless
+    ppl = torch.exp(mean_nll.clamp(max=20.0)).item()
     return ppl, wall, tracker
 
 
@@ -844,7 +854,9 @@ def eval_masked_lm(
                 nlls.append(loss_val)
 
     wall = time.perf_counter() - start
-    ppl = torch.exp(torch.tensor(nlls).mean()).item() if nlls else float("nan")
+    mean_nll = torch.tensor(nlls).mean() if nlls else torch.tensor(float("nan"))
+    # Clamp to avoid overflow in exp() — perplexity > exp(20) ≈ 485M is meaningless
+    ppl = torch.exp(mean_nll.clamp(max=20.0)).item()
     return ppl, wall, tracker
 
 
@@ -880,7 +892,9 @@ def eval_seq2seq(
                 nlls.append(loss_val)
 
     wall = time.perf_counter() - start
-    ppl = torch.exp(torch.tensor(nlls).mean()).item() if nlls else float("nan")
+    mean_nll = torch.tensor(nlls).mean() if nlls else torch.tensor(float("nan"))
+    # Clamp to avoid overflow in exp() — perplexity > exp(20) ≈ 485M is meaningless
+    ppl = torch.exp(mean_nll.clamp(max=20.0)).item()
     return ppl, wall, tracker
 
 
@@ -1003,6 +1017,11 @@ def prepare_text_batches(
     train_text = load_wikitext("train")
 
     max_tokens = config.seq_len * config.batch_size * FINETUNE_STEPS * 2
+    # Temporarily override model_max_length to avoid premature truncation.
+    # Some tokenizers (OPT, Pythia) have model_max_length=2048 which would
+    # limit us to 1-2 batches. We handle chunking ourselves below.
+    saved_max_len = getattr(tokenizer, "model_max_length", max_tokens)
+    tokenizer.model_max_length = max(max_tokens, saved_max_len)
     encodings = tokenizer(
         train_text,
         return_tensors="pt",
@@ -1010,6 +1029,7 @@ def prepare_text_batches(
         max_length=max_tokens,
         add_special_tokens=False,
     )
+    tokenizer.model_max_length = saved_max_len
     all_ids = encodings.input_ids[0]
 
     batches = []
@@ -1126,6 +1146,11 @@ def finetune_one_mode(
 
     use_amp = DEVICE.type == "cuda" and config.params_m >= 300
 
+    # Ensure float32 when not using AMP — some HF models load in bf16/fp16
+    # natively, causing NaN after the first optimizer step.
+    if not use_amp:
+        model = model.float()
+
     model.train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.finetune_lr)
 
@@ -1241,10 +1266,14 @@ def run_finetuning(
     print(f"\n  SECTION C: Fine-tuning ({FINETUNE_STEPS} steps)")
     print(f"    LR: {config.finetune_lr}, AMP: {config.params_m >= 300}")
 
+    # Always use gradient checkpointing for SSM models (Mamba's slow_forward
+    # path creates large intermediate tensors that cause OOM without it)
+    always_ckpt = config.arch_family == "ssm"
+
     results = []
     for mode, ckpt in [
-        ("conventional", False),
-        ("bwsk_analyzed", False),
+        ("conventional", always_ckpt),
+        ("bwsk_analyzed", always_ckpt),
         ("bwsk_reversible", True),
     ]:
         print(f"    {mode}...")
@@ -1408,6 +1437,10 @@ def benchmark_model(config: ExtendedModelConfig, dry_run: bool = False) -> Model
         results.skipped_finetune = True
         results.skipped_reason = f"Load error: {e}"
         return results
+
+    # Ensure model is in float32 — some HF models (e.g., Switch Transformer)
+    # store weights in bfloat16 natively, causing dtype mismatches with float32 inputs.
+    model = model.float()
 
     # --- Section A: Classification ---
     results.classification = run_classification(model, config)
@@ -1679,12 +1712,114 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Run only architecture diversity models",
     )
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        help="Regenerate report from existing per-model JSON files without running benchmarks",
+    )
     return parser.parse_args()
+
+
+def regenerate_report_from_json() -> None:
+    """Regenerate the report from existing per-model JSON files."""
+    json_files = sorted(RESULTS_DIR.glob("extended_*_results.json"))
+    # Exclude the combined file
+    json_files = [f for f in json_files if "benchmark_results" not in f.name]
+
+    if not json_files:
+        print("ERROR: No per-model result JSON files found.")
+        sys.exit(1)
+
+    all_results: list[ModelResults] = []
+    for jf in json_files:
+        with open(jf) as f:
+            data = json.load(f)
+
+        # Reconstruct ClassificationResult
+        cls_data = data.get("classification")
+        cls_result = None
+        if cls_data:
+            per_block = [
+                BlockClassification(**b) for b in cls_data.get("per_block", [])
+            ]
+            cls_result = ClassificationResults(
+                total_modules=cls_data["total_modules"],
+                s_count=cls_data["s_count"],
+                k_count=cls_data["k_count"],
+                gray_count=cls_data["gray_count"],
+                s_ratio=cls_data["s_ratio"],
+                k_ratio=cls_data["k_ratio"],
+                gray_ratio=cls_data["gray_ratio"],
+                per_block=per_block,
+            )
+
+        # Reconstruct EvalResult
+        eval_data = data.get("evaluation")
+        eval_result = None
+        if eval_data:
+            eval_result = EvalResult(**eval_data)
+
+        # Reconstruct FinetuneResults
+        def parse_ft(ft_data):
+            if ft_data is None:
+                return None
+            return FinetuneResult(**ft_data)
+
+        # Reconstruct CALMBlock list
+        calm_blocks = None
+        if data.get("calm_blocks"):
+            calm_blocks = [CALMBlockResult(**b) for b in data["calm_blocks"]]
+
+        mr = ModelResults(
+            model_name=data["model_name"],
+            slug=data["slug"],
+            hf_id=data["hf_id"],
+            arch_family=data["arch_family"],
+            arch_type=data["arch_type"],
+            params_m=data["params_m"],
+            batch_size=data["batch_size"],
+            seq_len=data["seq_len"],
+            dataset=data["dataset"],
+            device=data.get("device", ""),
+            timestamp=data.get("timestamp", ""),
+            classification=cls_result,
+            evaluation=eval_result,
+            finetune_conventional=parse_ft(data.get("finetune_conventional")),
+            finetune_bwsk_analyzed=parse_ft(data.get("finetune_bwsk_analyzed")),
+            finetune_bwsk_reversible=parse_ft(
+                data.get("finetune_bwsk_reversible"),
+            ),
+            calm_blocks=calm_blocks,
+            calm_partition_2=data.get("calm_partition_2"),
+            calm_partition_4=data.get("calm_partition_4"),
+            skipped_finetune=data.get("skipped_finetune", False),
+            skipped_reason=data.get("skipped_reason", ""),
+        )
+        all_results.append(mr)
+        print(f"  Loaded: {jf.name} ({mr.model_name})")
+
+    # Save combined JSON
+    combined_path = RESULTS_DIR / "extended_benchmark_results.json"
+    with open(combined_path, "w") as f:
+        json.dump([asdict(r) for r in all_results], f, indent=2, default=str)
+    print(f"\nCombined results saved to: {combined_path}")
+
+    # Generate report
+    report = generate_report(all_results)
+    with open(REPORT_PATH, "w") as f:
+        f.write(report)
+    print(f"Report saved to: {REPORT_PATH}")
+    print(f"Models in report: {len(all_results)}")
 
 
 def main() -> None:
     """Run the extended benchmark suite."""
     args = parse_args()
+
+    if args.report_only:
+        print("Regenerating report from existing JSON files...")
+        regenerate_report_from_json()
+        return
 
     # Select models
     if args.models:
@@ -1731,15 +1866,17 @@ def main() -> None:
 
             traceback.print_exc()
 
-    # Save combined results
+    # Regenerate combined results from ALL per-model JSON files
+    # (not just this run's results, to avoid clobbering when using --models)
+    json_files = sorted(RESULTS_DIR.glob("extended_*_results.json"))
+    json_files = [f for f in json_files if "benchmark_results" not in f.name]
+    all_json = []
+    for jf in json_files:
+        with open(jf) as fh:
+            all_json.append(json.load(fh))
     combined_path = RESULTS_DIR / "extended_benchmark_results.json"
-    with open(combined_path, "w") as f:
-        json.dump(
-            [asdict(r) for r in all_results],
-            f,
-            indent=2,
-            default=str,
-        )
+    with open(combined_path, "w") as fh:
+        json.dump(all_json, fh, indent=2, default=str)
     print(f"\nCombined results saved to: {combined_path}")
 
     # Generate report

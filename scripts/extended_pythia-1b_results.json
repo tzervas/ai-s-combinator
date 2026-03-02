@@ -1,0 +1,394 @@
+{
+  "model_name": "Pythia-1B",
+  "slug": "pythia-1b",
+  "hf_id": "EleutherAI/pythia-1b",
+  "arch_family": "transformer",
+  "arch_type": "causal_lm",
+  "params_m": 1010,
+  "batch_size": 1,
+  "seq_len": 512,
+  "dataset": "wikitext",
+  "device": "NVIDIA GeForce RTX 5080",
+  "timestamp": "2026-03-01 17:30:21",
+  "classification": {
+    "total_modules": 149,
+    "s_count": 100,
+    "k_count": 49,
+    "gray_count": 0,
+    "s_ratio": 0.6711409395973155,
+    "k_ratio": 0.3288590604026846,
+    "gray_ratio": 0.0,
+    "per_block": [
+      {
+        "block_idx": 0,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 1,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 2,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 3,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 4,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 5,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 6,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 7,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 8,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 9,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 10,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 11,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 12,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 13,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 14,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      },
+      {
+        "block_idx": 15,
+        "section": "decoder",
+        "s_count": 6,
+        "k_count": 3,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.6666666666666666
+      }
+    ]
+  },
+  "evaluation": {
+    "metric_name": "perplexity",
+    "value": 12.51793098449707,
+    "value_with_provenance": 12.51793098449707,
+    "baseline_time_s": 12.6268114670238,
+    "provenance_time_s": 12.780859153019264,
+    "provenance_overhead_s": 0.15404768599546514,
+    "provenance_s_phases": 18580,
+    "provenance_k_boundaries": 18579,
+    "provenance_erasure_budget": 0.2214765100671141
+  },
+  "finetune_conventional": {
+    "mode": "conventional",
+    "final_loss": 2.679452419281006,
+    "eval_metric": NaN,
+    "wall_time_s": 6.112500140006887,
+    "peak_memory_mb": 10859.8046875,
+    "loss_curve": [
+      2.679452419281006
+    ],
+    "nan_count": 299,
+    "erasure_budget": 0.0,
+    "parallelism_ratio": 0.0
+  },
+  "finetune_bwsk_analyzed": {
+    "mode": "bwsk_analyzed",
+    "final_loss": 2.679452419281006,
+    "eval_metric": NaN,
+    "wall_time_s": 6.104234998027096,
+    "peak_memory_mb": 10860.3046875,
+    "loss_curve": [
+      2.679452419281006
+    ],
+    "nan_count": 299,
+    "erasure_budget": 0.3288590604026846,
+    "parallelism_ratio": 0.6711409395973155
+  },
+  "finetune_bwsk_reversible": {
+    "mode": "bwsk_reversible",
+    "final_loss": 2.679452419281006,
+    "eval_metric": NaN,
+    "wall_time_s": 6.161991736997152,
+    "peak_memory_mb": 9667.35693359375,
+    "loss_curve": [
+      2.679452419281006
+    ],
+    "nan_count": 299,
+    "erasure_budget": 0.3288590604026846,
+    "parallelism_ratio": 0.6711409395973155
+  },
+  "calm_blocks": [
+    {
+      "block_idx": 0,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 1,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 2,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 3,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 4,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 5,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 6,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 7,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 8,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 9,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 10,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 11,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 12,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 13,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 14,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    },
+    {
+      "block_idx": 15,
+      "section": "decoder",
+      "total_children": 6,
+      "monotone_count": 2,
+      "sync_count": 4,
+      "parallelism_ratio": 0.3333333333333333,
+      "num_sync_barriers": 4
+    }
+  ],
+  "calm_partition_2": [
+    [
+      "input_layernorm",
+      "post_attention_layernorm",
+      "post_attention_dropout",
+      "attention"
+    ],
+    [
+      "post_mlp_dropout",
+      "mlp"
+    ]
+  ],
+  "calm_partition_4": [
+    [
+      "input_layernorm",
+      "post_attention_layernorm",
+      "post_attention_dropout"
+    ],
+    [
+      "post_mlp_dropout"
+    ],
+    [
+      "attention"
+    ],
+    [
+      "mlp"
+    ]
+  ],
+  "skipped_finetune": false,
+  "skipped_reason": ""
+}

@@ -26,7 +26,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import gc
 import json
 import math
 import sys
@@ -122,8 +121,8 @@ CONVERGENCE_MODELS: list[ConvergenceModelConfig] = [
         arch_type="ssm_lm",
         hf_id="state-spaces/mamba-130m-hf",
         params_m=130,
-        batch_size=4,
-        seq_len=512,
+        batch_size=2,
+        seq_len=256,
         dataset="wikitext",
         finetune_lr=3e-5,
     ),
@@ -216,19 +215,7 @@ class ModelConvergenceResults:
 # ---------------------------------------------------------------------------
 
 
-def reset_memory() -> None:
-    """Reset GPU memory tracking."""
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-        torch.cuda.reset_peak_memory_stats()
-
-
-def peak_memory_mb() -> float:
-    """Get peak GPU memory in MB."""
-    if torch.cuda.is_available():
-        return torch.cuda.max_memory_allocated() / (1024 * 1024)
-    return 0.0
+from bench_utils import peak_memory_mb, reset_memory
 
 
 def compute_grad_norm(model: nn.Module) -> float:
@@ -281,6 +268,9 @@ def prepare_text_batches(
     train_text = load_wikitext("train")
 
     max_tokens = config.seq_len * config.batch_size * num_steps * 2
+    # Temporarily override model_max_length to avoid premature truncation.
+    saved_max_len = getattr(tokenizer, "model_max_length", max_tokens)
+    tokenizer.model_max_length = max(max_tokens, saved_max_len)
     encodings = tokenizer(
         train_text,
         return_tensors="pt",
@@ -288,6 +278,7 @@ def prepare_text_batches(
         max_length=max_tokens,
         add_special_tokens=False,
     )
+    tokenizer.model_max_length = saved_max_len
     all_ids = encodings.input_ids[0]
 
     batches = []
@@ -318,6 +309,18 @@ def load_model(config: ConvergenceModelConfig) -> tuple:
             model.fc = nn.Linear(in_features, 10)
         return model.to(DEVICE), None
     elif config.arch_type == "ssm_lm":
+        # Patch mamba_ssm 2.x for transformers 5.x compatibility
+        try:
+            import mamba_ssm
+
+            if not hasattr(mamba_ssm, "selective_state_update"):
+                from mamba_ssm.ops.triton.selective_state_update import (
+                    selective_state_update,
+                )
+
+                mamba_ssm.selective_state_update = selective_state_update
+        except ImportError:
+            pass
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         tokenizer = AutoTokenizer.from_pretrained(config.hf_id)
@@ -358,7 +361,9 @@ def train_one_run(
         torch.cuda.manual_seed(seed)
 
     model, _ = load_model(config)
-    use_checkpointing = mode == "bwsk_reversible"
+    # Enable gradient checkpointing for reversible mode, and always for SSM
+    # models (Mamba's slow_forward path creates large intermediate tensors)
+    use_checkpointing = mode == "bwsk_reversible" or config.arch_family == "ssm"
 
     if use_checkpointing and hasattr(model, "gradient_checkpointing_enable"):
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
@@ -366,6 +371,10 @@ def train_one_run(
             model.config.use_cache = False
 
     use_amp = DEVICE.type == "cuda" and config.params_m >= 300
+
+    # Ensure float32 when not using AMP (some HF models load in bf16)
+    if not use_amp:
+        model = model.float()
 
     model.train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.finetune_lr)
@@ -838,7 +847,7 @@ def main() -> None:
             model_name=config.name,
             slug=config.slug,
             runs=runs,
-            stats=[asdict(s) for s in stats],
+            stats=stats,
             mean_loss_curves=mean_curves,
             std_loss_curves=std_curves,
         )
@@ -872,13 +881,13 @@ def main() -> None:
     print("CONVERGENCE EXPERIMENT COMPLETE")
     for mr in all_model_results:
         print(f"\n  {mr.model_name}:")
-        for s_dict in mr.stats:
-            if s_dict["mode_b"] == "bwsk_reversible":
-                sig = "EQUIVALENT" if s_dict["p_value"] > 0.05 else "DIFFERENT"
+        for s in mr.stats:
+            if s.mode_b == "bwsk_reversible":
+                sig = "EQUIVALENT" if s.p_value > 0.05 else "DIFFERENT"
                 print(
                     f"    conv vs reversible: "
-                    f"p={s_dict['p_value']:.4f}, "
-                    f"d={s_dict['cohens_d']:.3f} → {sig}"
+                    f"p={s.p_value:.4f}, "
+                    f"d={s.cohens_d:.3f} → {sig}"
                 )
     print("=" * 70)
 

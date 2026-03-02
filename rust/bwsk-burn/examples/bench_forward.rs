@@ -31,8 +31,17 @@ fn bench_bwsk_mlp(batch: usize, in_dim: usize, hidden: usize, out_dim: usize, it
     }
     let elapsed = start.elapsed();
 
-    let us_per_iter = elapsed.as_micros() as f64 / iters as f64;
-    let samples_per_sec = (batch as f64 * iters as f64) / elapsed.as_secs_f64();
+    let us_per_iter = if iters > 0 {
+        elapsed.as_micros() as f64 / iters as f64
+    } else {
+        0.0
+    };
+    let elapsed_secs = elapsed.as_secs_f64();
+    let samples_per_sec = if elapsed_secs > 0.0 {
+        (batch as f64 * iters as f64) / elapsed_secs
+    } else {
+        0.0
+    };
 
     println!(
         "  BwskMlp [{batch}x{in_dim}] -> [{batch}x{out_dim}] (hidden={hidden}): \
@@ -55,7 +64,11 @@ fn bench_b_linear(batch: usize, in_dim: usize, hidden: usize, out_dim: usize, it
         let _ = model.forward(x.clone());
     }
     let elapsed = start.elapsed();
-    let us_per_iter = elapsed.as_micros() as f64 / iters as f64;
+    let us_per_iter = if iters > 0 {
+        elapsed.as_micros() as f64 / iters as f64
+    } else {
+        0.0
+    };
 
     println!(
         "  BLinear  [{batch}x{in_dim}] -> [{batch}x{out_dim}] (hidden={hidden}): \
@@ -78,7 +91,11 @@ fn bench_s_residual(batch: usize, dim: usize, iters: usize) {
         let _ = model.forward(x.clone());
     }
     let elapsed = start.elapsed();
-    let us_per_iter = elapsed.as_micros() as f64 / iters as f64;
+    let us_per_iter = if iters > 0 {
+        elapsed.as_micros() as f64 / iters as f64
+    } else {
+        0.0
+    };
 
     println!("  SResidual [{batch}x{dim}] -> [{batch}x{dim}]: {us_per_iter:.1}µs/iter");
 }
@@ -98,7 +115,11 @@ fn bench_k_relu(batch: usize, dim: usize, iters: usize) {
         let _ = model.forward(x.clone());
     }
     let elapsed = start.elapsed();
-    let us_per_iter = elapsed.as_micros() as f64 / iters as f64;
+    let us_per_iter = if iters > 0 {
+        elapsed.as_micros() as f64 / iters as f64
+    } else {
+        0.0
+    };
 
     println!("  KRelu     [{batch}x{dim}] -> [{batch}x{dim}]: {us_per_iter:.1}µs/iter");
 }

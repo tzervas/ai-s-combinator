@@ -15,7 +15,6 @@ Usage:
 
 from __future__ import annotations
 
-import gc
 import json
 import sys
 import time
@@ -156,19 +155,7 @@ class BenchmarkResults:
 # ---------------------------------------------------------------------------
 
 
-def reset_memory() -> None:
-    """Reset GPU memory tracking."""
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-        torch.cuda.reset_peak_memory_stats()
-
-
-def peak_memory_mb() -> float:
-    """Get peak GPU memory in MB."""
-    if torch.cuda.is_available():
-        return torch.cuda.max_memory_allocated() / (1024 * 1024)
-    return 0.0
+from bench_utils import peak_memory_mb, reset_memory
 
 
 def classify_leaf_modules(

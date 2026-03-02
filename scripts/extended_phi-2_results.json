@@ -1,0 +1,641 @@
+{
+  "model_name": "Phi-2",
+  "slug": "phi-2",
+  "hf_id": "microsoft/phi-2",
+  "arch_family": "transformer",
+  "arch_type": "causal_lm",
+  "params_m": 2700,
+  "batch_size": 1,
+  "seq_len": 256,
+  "dataset": "wikitext",
+  "device": "NVIDIA GeForce RTX 5080",
+  "timestamp": "2026-03-01 17:31:56",
+  "classification": {
+    "total_modules": 293,
+    "s_count": 228,
+    "k_count": 65,
+    "gray_count": 0,
+    "s_ratio": 0.7781569965870307,
+    "k_ratio": 0.22184300341296928,
+    "gray_ratio": 0.0,
+    "per_block": [
+      {
+        "block_idx": 0,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 1,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 2,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 3,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 4,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 5,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 6,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 7,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 8,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 9,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 10,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 11,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 12,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 13,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 14,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 15,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 16,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 17,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 18,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 19,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 20,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 21,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 22,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 23,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 24,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 25,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 26,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 27,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 28,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 29,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 30,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      },
+      {
+        "block_idx": 31,
+        "section": "decoder",
+        "s_count": 7,
+        "k_count": 2,
+        "gray_count": 0,
+        "total": 9,
+        "s_ratio": 0.7777777777777778
+      }
+    ]
+  },
+  "evaluation": {
+    "metric_name": "perplexity",
+    "value": 9.128881454467773,
+    "value_with_provenance": 9.128881454467773,
+    "baseline_time_s": 35.60610932399868,
+    "provenance_time_s": 36.077910504012834,
+    "provenance_overhead_s": 0.47180118001415394,
+    "provenance_s_phases": 36466,
+    "provenance_k_boundaries": 36465,
+    "provenance_erasure_budget": 0.2
+  },
+  "finetune_conventional": null,
+  "finetune_bwsk_analyzed": null,
+  "finetune_bwsk_reversible": null,
+  "calm_blocks": [
+    {
+      "block_idx": 0,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 1,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 2,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 3,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 4,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 5,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 6,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 7,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 8,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 9,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 10,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 11,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 12,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 13,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 14,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 15,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 16,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 17,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 18,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 19,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 20,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 21,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 22,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 23,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 24,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 25,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 26,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 27,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 28,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 29,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 30,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    },
+    {
+      "block_idx": 31,
+      "section": "decoder",
+      "total_children": 4,
+      "monotone_count": 1,
+      "sync_count": 3,
+      "parallelism_ratio": 0.25,
+      "num_sync_barriers": 3
+    }
+  ],
+  "calm_partition_2": [
+    [
+      "self_attn",
+      "input_layernorm",
+      "resid_dropout"
+    ],
+    [
+      "mlp"
+    ]
+  ],
+  "calm_partition_4": [
+    [
+      "self_attn"
+    ],
+    [
+      "mlp"
+    ],
+    [
+      "input_layernorm",
+      "resid_dropout"
+    ],
+    []
+  ],
+  "skipped_finetune": true,
+  "skipped_reason": "Classification-only mode (OOM risk)"
+}

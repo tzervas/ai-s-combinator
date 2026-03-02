@@ -92,3 +92,15 @@ figures:
 # Upload results and models to HuggingFace
 upload-hf:
     uv run python scripts/upload_to_huggingface.py
+
+# Show VRAM schedule (dry run)
+schedule:
+    uv run python scripts/gpu_scheduler.py --schedule-only --all
+
+# Run extended benchmark with VRAM scheduling
+extended-benchmark-scheduled:
+    uv run python scripts/gpu_scheduler.py --script extended_benchmark
+
+# Run all benchmarks with VRAM scheduling
+benchmark-all:
+    uv run python scripts/gpu_scheduler.py --all
