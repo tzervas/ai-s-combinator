@@ -201,3 +201,22 @@ def calibrated_vram_mb(
     if model_slug in cal:
         return cal[model_slug] * buffer_factor
     return estimate_vram_mb(params_m, batch_size, seq_len, mode)
+
+
+def cleanup_hf_cache(hf_model_id: str) -> None:
+    """Remove a model from the HuggingFace cache directory.
+
+    Frees disk space after the model has been fine-tuned and uploaded.
+    The cache path follows HF's convention: models--{org}--{name}.
+
+    Args:
+        hf_model_id: HuggingFace model ID (e.g., "EleutherAI/pythia-70m").
+    """
+    import shutil
+
+    cache_dir = Path.home() / ".cache" / "huggingface" / "hub"
+    cache_name = "models--" + hf_model_id.replace("/", "--")
+    model_cache = cache_dir / cache_name
+    if model_cache.exists():
+        shutil.rmtree(model_cache)
+        print(f"  Cleaned HF cache: {model_cache}")

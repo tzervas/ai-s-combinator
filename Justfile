@@ -104,3 +104,15 @@ extended-benchmark-scheduled:
 # Run all benchmarks with VRAM scheduling
 benchmark-all:
     uv run python scripts/gpu_scheduler.py --all
+
+# Run full training pipeline (all models, finetune + scratch, all modes)
+full-train:
+    uv run python scripts/full_training_pipeline.py
+
+# Run full training pipeline (fine-tune only)
+full-train-finetune:
+    uv run python scripts/full_training_pipeline.py --experiment finetune
+
+# Run full training pipeline (from-scratch only)
+full-train-scratch:
+    uv run python scripts/full_training_pipeline.py --experiment scratch

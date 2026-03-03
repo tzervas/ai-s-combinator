@@ -151,6 +151,8 @@ Last updated: 2026-03-01
 | `upload_to_huggingface.py` | Upload benchmark datasets and fine-tuned models to HuggingFace | — |
 | `bench_utils.py` | Shared utilities: VRAM estimation, memory helpers, calibration | Used by gpu_scheduler and benchmark scripts |
 | `gpu_scheduler.py` | VRAM-aware GPU task scheduler with bin-packing | CLI: `--schedule-only`, `--calibrate`, `--all` |
+| `full_training_pipeline.py` | Full convergence training: epoch-based, early stopping, HF upload, cleanup | CLI: `--models`, `--experiment`, `--resume`, `--dry-run` |
+| `training_utils.py` | Shared training infrastructure: datasets, early stopper, checkpoints, cleanup | Used by full_training_pipeline.py |
 
 ## Tests (`tests/`)
 
@@ -165,6 +167,7 @@ Last updated: 2026-03-01
 | `test_calm.py` | CALM analysis tests | 8 |
 | `test_nas.py` | NAS tests | 13 |
 | `test_gpu_scheduler.py` | VRAM estimation and scheduler tests | 20 |
+| `test_training_utils.py` | Training utils: datasets, early stopper, checkpoints | 22 |
 
 ## Generated Reports
 
@@ -187,3 +190,7 @@ Last updated: 2026-03-01
 | `scripts/convergence_*_results.json` | Per-model convergence results (4 files + combined) | `scripts/convergence_experiment.py` |
 | `scripts/memory_throughput_results.json` | Memory profiler results (7 models, 3 modes) | `scripts/memory_throughput_profiler.py` |
 | `scripts/profile_*_results.json` | Per-model memory profiler results (7 files) | `scripts/memory_throughput_profiler.py` |
+| `docs/FULL_TRAINING_REPORT.md` | Full convergence training results across all models and modes | `scripts/full_training_pipeline.py` |
+| `scripts/full_training_results.json` | Combined full training results (JSON) | `scripts/full_training_pipeline.py` |
+| `scripts/fulltrain_*_results.json` | Per-model full training results | `scripts/full_training_pipeline.py` |
+| `scripts/pipeline_state.json` | Pipeline resume state (completed/failed runs) | `scripts/full_training_pipeline.py` |
