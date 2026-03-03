@@ -1,0 +1,97 @@
+{
+  "model_name": "Pythia-1B",
+  "slug": "pythia-1b",
+  "hf_id": "EleutherAI/pythia-1b",
+  "arch_family": "transformer",
+  "arch_type": "causal_lm",
+  "params_m": 1010,
+  "s_ratio": 0.6711409395973155,
+  "k_ratio": 0.3288590604026846,
+  "runs": [
+    {
+      "model_slug": "pythia-1b",
+      "experiment": "finetune",
+      "mode": "conventional",
+      "final_train_loss": 3.362307071685791,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 86.7386896960088,
+      "peak_memory_mb": 13528.99853515625,
+      "loss_curve": [
+        3.362307071685791
+      ],
+      "val_curve": [],
+      "nan_count": 4741,
+      "erasure_budget": 0.0,
+      "parallelism_ratio": 0.0
+    },
+    {
+      "model_slug": "pythia-1b",
+      "experiment": "finetune",
+      "mode": "bwsk_analyzed",
+      "final_train_loss": 2.9040181636810303,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 86.64329494297272,
+      "peak_memory_mb": 13528.99853515625,
+      "loss_curve": [
+        2.9040181636810303
+      ],
+      "val_curve": [],
+      "nan_count": 4741,
+      "erasure_budget": 0.3288590604026846,
+      "parallelism_ratio": 0.6711409395973155
+    },
+    {
+      "model_slug": "pythia-1b",
+      "experiment": "scratch",
+      "mode": "conventional",
+      "final_train_loss": 11.397445678710938,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 86.75902477302589,
+      "peak_memory_mb": 13528.99853515625,
+      "loss_curve": [
+        11.397445678710938
+      ],
+      "val_curve": [],
+      "nan_count": 4741,
+      "erasure_budget": 0.0,
+      "parallelism_ratio": 0.0
+    },
+    {
+      "model_slug": "pythia-1b",
+      "experiment": "scratch",
+      "mode": "bwsk_analyzed",
+      "final_train_loss": 11.125632286071777,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 86.77201175701339,
+      "peak_memory_mb": 13528.99853515625,
+      "loss_curve": [
+        11.125632286071777
+      ],
+      "val_curve": [],
+      "nan_count": 4741,
+      "erasure_budget": 0.3288590604026846,
+      "parallelism_ratio": 0.6711409395973155
+    }
+  ],
+  "timestamp": "2026-03-03 03:11:19"
+}

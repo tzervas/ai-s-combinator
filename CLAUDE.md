@@ -342,7 +342,7 @@ Background research documents from the S-combinator project.
 | 4 | Rust Crate + Burn Integration | Rust, CubeCL | 8-12 weeks |
 | 5 | Erasure-Minimized NAS | Python | 12+ weeks |
 
-**Current status**: All 5 phases complete. Full benchmark pipeline run across 17 models on RTX 5080. Whitepaper written with complete empirical results. VRAM-aware GPU scheduler with calibration. Full convergence training pipeline added (epoch-based, early stopping, HF upload, cleanup). ~200 Python tests passing, 29 Rust tests passing. Full CI green. GitHub repo public. 8 publication-quality figures generated.
+**Current status**: All 5 phases complete. Full benchmark pipeline run across 17 models on RTX 5080. Whitepaper written with complete empirical results. VRAM-aware GPU scheduler with calibration. Full convergence training pipeline complete: 72 models trained to convergence (12 architectures x 3 modes x 2 experiments), all uploaded to HuggingFace (88 public repos). ~200 Python tests passing, 29 Rust tests passing. Full CI green. GitHub repo public. 8 publication-quality figures generated.
 
 - **Phase 1** (S/K Classifier): classify_operation, classify_model, 70+ op database, torch.fx tracing, per_layer_summary, BWSK primitives, provenance tracker, training loop
 - **Phase 2** (DSL + Provenance): nn.Module wrappers (BModule/WModule/SModule/KModule), >> pipeline operator, forward hook provenance, to_json/to_graphviz, architecture examples (MLP, residual, attention)

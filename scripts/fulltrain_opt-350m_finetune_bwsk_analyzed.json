@@ -1,0 +1,21 @@
+{
+  "model_slug": "opt-350m",
+  "experiment": "finetune",
+  "mode": "bwsk_analyzed",
+  "final_train_loss": 3.671661138534546,
+  "best_val_metric": Infinity,
+  "test_metric": Infinity,
+  "metric_name": "",
+  "epochs_completed": 1,
+  "total_steps": 1,
+  "early_stopped": false,
+  "wall_time_s": 35.770952654012945,
+  "peak_memory_mb": 6766.33837890625,
+  "loss_curve": [
+    3.671661138534546
+  ],
+  "val_curve": [],
+  "nan_count": 2368,
+  "erasure_budget": 0.1085972850678733,
+  "parallelism_ratio": 0.8914027149321267
+}

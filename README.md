@@ -15,17 +15,17 @@ Every neural network operation is either **information-preserving** (S-type) or 
 
 ## Key Results
 
-Validated across **17 models** spanning 5 architecture families on an NVIDIA RTX 5080:
+Validated across **17 models** spanning 5 architecture families on an NVIDIA RTX 5080. **72 trained models** published to [HuggingFace](#huggingface-models).
 
 | Family | Models | S-type Ratio | Memory Savings (Reversible) |
 |--------|--------|-------------|----------------------------|
 | SSM/Mamba | Mamba-130M, 370M | **86%** (0% K-type) | 0% (GRAY-interrupted) |
-| Transformer | GPT-2, Pythia, BERT, OPT, T5 | **60-89%** | 10-44% |
-| Vision Transformer | ViT-base | **72%** | 64% |
-| Mixture-of-Experts | Switch-Base-8 | **53%** | ~0% |
+| Transformer | GPT-2, Pythia, BERT, T5 | **60-89%** | 16-37% |
+| Vision Transformer | ViT-base | **72%** | 37% |
+| Mixture-of-Experts | Switch-Base-8 | **53%** | N/A (16GB VRAM limit) |
 | CNN | ResNet-50, EfficientNet, MobileNet | **33-37%** | ~0% |
 
-**Statistical equivalence**: All BWSK training modes produce equivalent convergence (p > 0.05 across 36 runs, 4 models x 3 modes x 3 seeds).
+**Statistical equivalence**: All BWSK training modes produce equivalent convergence for fine-tuning (<1% delta for LMs, p > 0.05 across 36 statistical runs). 72 models trained to convergence with epoch-based early stopping.
 
 ## The BWSK Primitives
 
@@ -134,7 +134,7 @@ docs/
 
 All trained models are published to HuggingFace under the `tzervas` organization. Each model is trained in three BWSK modes (conventional, bwsk_analyzed, bwsk_reversible) across two experiments (fine-tune, from-scratch).
 
-> **Note**: Model upload is in progress. Links will be populated as models complete training and upload.
+**72 trained models** across 12 architectures, all publicly available. Each model is trained in three BWSK modes across two experiments. Models with NaN training issues (OPT-350M, Pythia-410M, Pythia-1B conv/analyzed) and Switch-Base-8 (16GB VRAM exceeded) are excluded.
 
 **Naming convention**: `tzervas/bwsk-{model}-{experiment}-{mode}`
 

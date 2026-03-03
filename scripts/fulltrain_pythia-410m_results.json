@@ -1,0 +1,139 @@
+{
+  "model_name": "Pythia-410M",
+  "slug": "pythia-410m",
+  "hf_id": "EleutherAI/pythia-410m",
+  "arch_family": "transformer",
+  "arch_type": "causal_lm",
+  "params_m": 405,
+  "s_ratio": 0.669683257918552,
+  "k_ratio": 0.33031674208144796,
+  "runs": [
+    {
+      "model_slug": "pythia-410m",
+      "experiment": "finetune",
+      "mode": "conventional",
+      "final_train_loss": 3.2817702293395996,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 38.8294405459892,
+      "peak_memory_mb": 7772.75830078125,
+      "loss_curve": [
+        3.2817702293395996
+      ],
+      "val_curve": [],
+      "nan_count": 2371,
+      "erasure_budget": 0.0,
+      "parallelism_ratio": 0.0
+    },
+    {
+      "model_slug": "pythia-410m",
+      "experiment": "finetune",
+      "mode": "bwsk_analyzed",
+      "final_train_loss": 3.203125476837158,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 39.81881371099735,
+      "peak_memory_mb": 7772.75830078125,
+      "loss_curve": [
+        3.203125476837158
+      ],
+      "val_curve": [],
+      "nan_count": 2371,
+      "erasure_budget": 0.33031674208144796,
+      "parallelism_ratio": 0.669683257918552
+    },
+    {
+      "model_slug": "pythia-410m",
+      "experiment": "finetune",
+      "mode": "bwsk_reversible",
+      "final_train_loss": 3.0728437900543213,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 40.40115833899472,
+      "peak_memory_mb": 5430.30322265625,
+      "loss_curve": [
+        3.0728437900543213
+      ],
+      "val_curve": [],
+      "nan_count": 2371,
+      "erasure_budget": 0.33031674208144796,
+      "parallelism_ratio": 0.669683257918552
+    },
+    {
+      "model_slug": "pythia-410m",
+      "experiment": "scratch",
+      "mode": "conventional",
+      "final_train_loss": 11.01530933380127,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 39.98461601504823,
+      "peak_memory_mb": 7772.75830078125,
+      "loss_curve": [
+        11.01530933380127
+      ],
+      "val_curve": [],
+      "nan_count": 2371,
+      "erasure_budget": 0.0,
+      "parallelism_ratio": 0.0
+    },
+    {
+      "model_slug": "pythia-410m",
+      "experiment": "scratch",
+      "mode": "bwsk_analyzed",
+      "final_train_loss": 11.106717109680176,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 39.99670526897535,
+      "peak_memory_mb": 7772.75830078125,
+      "loss_curve": [
+        11.106717109680176
+      ],
+      "val_curve": [],
+      "nan_count": 2371,
+      "erasure_budget": 0.33031674208144796,
+      "parallelism_ratio": 0.669683257918552
+    },
+    {
+      "model_slug": "pythia-410m",
+      "experiment": "scratch",
+      "mode": "bwsk_reversible",
+      "final_train_loss": 10.994820594787598,
+      "best_val_metric": Infinity,
+      "test_metric": Infinity,
+      "metric_name": "",
+      "epochs_completed": 1,
+      "total_steps": 1,
+      "early_stopped": false,
+      "wall_time_s": 40.38609310798347,
+      "peak_memory_mb": 5430.30322265625,
+      "loss_curve": [
+        10.994820594787598
+      ],
+      "val_curve": [],
+      "nan_count": 2371,
+      "erasure_budget": 0.33031674208144796,
+      "parallelism_ratio": 0.669683257918552
+    }
+  ],
+  "timestamp": "2026-03-02 18:27:59"
+}

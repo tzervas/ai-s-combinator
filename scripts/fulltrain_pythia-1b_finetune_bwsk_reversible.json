@@ -1,0 +1,21 @@
+{
+  "model_slug": "pythia-1b",
+  "experiment": "finetune",
+  "mode": "bwsk_reversible",
+  "final_train_loss": 3.0753068923950195,
+  "best_val_metric": Infinity,
+  "test_metric": Infinity,
+  "metric_name": "",
+  "epochs_completed": 1,
+  "total_steps": 1,
+  "early_stopped": false,
+  "wall_time_s": 86.95513631898211,
+  "peak_memory_mb": 13528.99853515625,
+  "loss_curve": [
+    3.0753068923950195
+  ],
+  "val_curve": [],
+  "nan_count": 4741,
+  "erasure_budget": 0.3288590604026846,
+  "parallelism_ratio": 0.6711409395973155
+}

@@ -1,0 +1,21 @@
+{
+  "model_slug": "pythia-410m",
+  "experiment": "scratch",
+  "mode": "bwsk_analyzed",
+  "final_train_loss": 11.106717109680176,
+  "best_val_metric": Infinity,
+  "test_metric": Infinity,
+  "metric_name": "",
+  "epochs_completed": 1,
+  "total_steps": 1,
+  "early_stopped": false,
+  "wall_time_s": 39.99670526897535,
+  "peak_memory_mb": 7772.75830078125,
+  "loss_curve": [
+    11.106717109680176
+  ],
+  "val_curve": [],
+  "nan_count": 2371,
+  "erasure_budget": 0.33031674208144796,
+  "parallelism_ratio": 0.669683257918552
+}
