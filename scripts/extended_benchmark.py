@@ -1146,10 +1146,11 @@ def finetune_one_mode(
 
     use_amp = DEVICE.type == "cuda" and config.params_m >= 300
 
-    # Ensure float32 when not using AMP — some HF models load in bf16/fp16
-    # natively, causing NaN after the first optimizer step.
-    if not use_amp:
-        model = model.float()
+    # Always ensure fp32 master weights. Some HF models (OPT, Pythia) ship with
+    # torch_dtype=float16, and training with fp16 params causes NaN after the
+    # first optimizer step due to fp16's narrow representable range. AMP autocast
+    # handles bf16 casting dynamically during forward — it needs fp32 master weights.
+    model = model.float()
 
     model.train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.finetune_lr)

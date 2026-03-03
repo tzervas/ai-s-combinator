@@ -461,8 +461,12 @@ def train_one_run(
     # internally (for stability) but autocast casts classifier weights to bf16,
     # causing dtype mismatch. Switch-Base-8 also OOMs without AMP on 16GB.
     use_amp = DEVICE.type == "cuda" and config.params_m >= 300 and config.arch_family != "moe"
-    if not use_amp:
-        model = model.float()
+
+    # Always ensure fp32 master weights. Some HF models (OPT, Pythia) ship with
+    # torch_dtype=float16, and training with fp16 params causes NaN after the
+    # first optimizer step due to fp16's narrow representable range. AMP autocast
+    # handles bf16 casting dynamically during forward — it needs fp32 master weights.
+    model = model.float()
 
     # Optimizer and scheduler
     model.train()
@@ -655,10 +659,12 @@ def train_one_run(
                             save_best_model(model, tokenizer, best_model_path)
                         model.train()
 
-        # NaN safety check
-        total_steps_so_far = len(loss_curve) + nan_count
-        if total_steps_so_far > 0:
-            nan_ratio = nan_count / total_steps_so_far
+        # NaN safety check — count in consistent units (raw batches).
+        # loss_curve counts optimizer steps; multiply by grad_accum to get batches.
+        good_batches = len(loss_curve) * train_config.grad_accum_steps
+        total_batches = good_batches + nan_count
+        if total_batches > 0:
+            nan_ratio = nan_count / total_batches
             if nan_ratio > total_nan_threshold:
                 print(f"    ABORT: NaN ratio {nan_ratio:.1%} > {total_nan_threshold:.0%} threshold")
                 break
