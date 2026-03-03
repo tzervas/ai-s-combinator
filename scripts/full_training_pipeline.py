@@ -444,11 +444,12 @@ def train_one_run(
         erasure_budget = k_count / total if total > 0 else 0.0
         parallelism_ratio = s_count / total if total > 0 else 0.0
 
-    # Gradient checkpointing: always for reversible/SSM, and also for
-    # large models (>=500M) in all modes to prevent OOM on 16GB GPUs.
+    # Gradient checkpointing: always for reversible/SSM, large models
+    # (>=500M), and MoE (high module count pushes VRAM despite lower param count).
     use_ckpt = (
         mode == "bwsk_reversible"
         or config.arch_family == "ssm"
+        or config.arch_family == "moe"
         or config.params_m >= 500
     )
     if use_ckpt and hasattr(model, "gradient_checkpointing_enable"):
@@ -456,8 +457,10 @@ def train_one_run(
         if hasattr(model, "config") and hasattr(model.config, "use_cache"):
             model.config.use_cache = False
 
-    # AMP for large models
-    use_amp = DEVICE.type == "cuda" and config.params_m >= 300
+    # AMP for large models. MoE excluded: router casts hidden_states to float32
+    # internally (for stability) but autocast casts classifier weights to bf16,
+    # causing dtype mismatch. Switch-Base-8 also OOMs without AMP on 16GB.
+    use_amp = DEVICE.type == "cuda" and config.params_m >= 300 and config.arch_family != "moe"
     if not use_amp:
         model = model.float()
 
