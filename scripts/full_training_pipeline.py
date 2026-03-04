@@ -474,9 +474,17 @@ def train_one_run(
     # handles bf16 casting dynamically during forward — it needs fp32 master weights.
     model = model.float()
 
-    # Optimizer and scheduler
+    # Optimizer and scheduler.
+    # foreach=False for large models: the default foreach=True pre-allocates
+    # temporary buffers for ALL params simultaneously (e.g., sqrt(exp_avg_sq)),
+    # causing OOM on models that barely fit in VRAM. foreach=False processes
+    # one param group at a time, trading ~10% optimizer step speed for lower
+    # peak memory.
     model.train()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01)
+    use_foreach = config.params_m < 500
+    optimizer = torch.optim.AdamW(
+        model.parameters(), lr=lr, weight_decay=0.01, foreach=use_foreach
+    )
 
     # Estimate total steps for cosine schedule
     if config.arch_type == "image_cls" and cifar_module is not None:
