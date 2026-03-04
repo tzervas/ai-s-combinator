@@ -419,49 +419,68 @@
       "pythia-410m",
       "scratch",
       "bwsk_reversible"
+    ],
+    [
+      "pythia-1b",
+      "finetune",
+      "conventional"
+    ],
+    [
+      "pythia-1b",
+      "finetune",
+      "bwsk_analyzed"
+    ],
+    [
+      "pythia-1b",
+      "finetune",
+      "bwsk_reversible"
+    ],
+    [
+      "pythia-1b",
+      "scratch",
+      "conventional"
+    ],
+    [
+      "pythia-1b",
+      "scratch",
+      "bwsk_analyzed"
+    ],
+    [
+      "pythia-1b",
+      "scratch",
+      "bwsk_reversible"
+    ],
+    [
+      "switch-base-8",
+      "finetune",
+      "conventional"
+    ],
+    [
+      "switch-base-8",
+      "finetune",
+      "bwsk_analyzed"
+    ],
+    [
+      "switch-base-8",
+      "finetune",
+      "bwsk_reversible"
+    ],
+    [
+      "switch-base-8",
+      "scratch",
+      "conventional"
+    ],
+    [
+      "switch-base-8",
+      "scratch",
+      "bwsk_analyzed"
+    ],
+    [
+      "switch-base-8",
+      "scratch",
+      "bwsk_reversible"
     ]
   ],
-  "in_progress": [
-    "switch-base-8",
-    "finetune",
-    "conventional"
-  ],
-  "failed": [
-    [
-      "pythia-1b",
-      "finetune",
-      "conventional",
-      "CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 27.06 MiB is free. Including non-PyTorch memory, this process has 21.46 GiB memory in use. Of the allocated memory 20.70 GiB is allocated by PyTorch, and 448.74 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-    ],
-    [
-      "pythia-1b",
-      "finetune",
-      "bwsk_analyzed",
-      "CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 45.06 MiB is free. Including non-PyTorch memory, this process has 21.44 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 302.67 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-    ],
-    [
-      "pythia-1b",
-      "finetune",
-      "bwsk_reversible",
-      "CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 13.06 MiB is free. Including non-PyTorch memory, this process has 21.47 GiB memory in use. Of the allocated memory 20.57 GiB is allocated by PyTorch, and 590.80 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-    ],
-    [
-      "pythia-1b",
-      "scratch",
-      "conventional",
-      "CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 13.06 MiB is free. Including non-PyTorch memory, this process has 21.47 GiB memory in use. Of the allocated memory 20.57 GiB is allocated by PyTorch, and 590.80 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-    ],
-    [
-      "pythia-1b",
-      "scratch",
-      "bwsk_analyzed",
-      "CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 25.06 MiB is free. Including non-PyTorch memory, this process has 21.46 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 322.67 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-    ],
-    [
-      "pythia-1b",
-      "scratch",
-      "bwsk_reversible",
-      "CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 22.06 GiB of which 25.06 MiB is free. Including non-PyTorch memory, this process has 21.46 GiB memory in use. Of the allocated memory 20.82 GiB is allocated by PyTorch, and 322.67 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-    ]
-  ]
+  "in_progress": null,
+  "failed": []
 }
