@@ -15,17 +15,17 @@ Every neural network operation is either **information-preserving** (S-type) or 
 
 ## Key Results
 
-Validated across **17 models** spanning 5 architecture families on an NVIDIA RTX 5080. **72 trained models** published to [HuggingFace](#huggingface-models).
+Validated across **17 models** spanning 5 architecture families on NVIDIA RTX 5080 and RTX 3090 Ti. **96 trained models** (16 architectures x 3 modes x 2 experiments) published to [HuggingFace](#huggingface-models).
 
 | Family | Models | S-type Ratio | Memory Savings (Reversible) |
 |--------|--------|-------------|----------------------------|
 | SSM/Mamba | Mamba-130M, 370M | **86%** (0% K-type) | 0% (GRAY-interrupted) |
 | Transformer | GPT-2, Pythia, BERT, T5 | **60-89%** | 16-37% |
 | Vision Transformer | ViT-base | **72%** | 37% |
-| Mixture-of-Experts | Switch-Base-8 | **53%** | N/A (16GB VRAM limit) |
+| Mixture-of-Experts | Switch-Base-8 | **53%** | 0% (router overhead) |
 | CNN | ResNet-50, EfficientNet, MobileNet | **33-37%** | ~0% |
 
-**Statistical equivalence**: All BWSK training modes produce equivalent convergence for fine-tuning (<1% delta for LMs, p > 0.05 across 36 statistical runs). 72 models trained to convergence with epoch-based early stopping.
+**Statistical equivalence**: All BWSK training modes produce equivalent convergence for fine-tuning (<1% delta for LMs, p > 0.05 across 36 statistical runs). 96 models trained to convergence with epoch-based early stopping across 16 architectures.
 
 ## The BWSK Primitives
 
@@ -134,7 +134,7 @@ docs/
 
 All trained models are published to HuggingFace under the `tzervas` organization. Each model is trained in three BWSK modes (conventional, bwsk_analyzed, bwsk_reversible) across two experiments (fine-tune, from-scratch).
 
-**72 trained models** across 12 architectures, all publicly available. Each model is trained in three BWSK modes across two experiments. Models with NaN training issues (OPT-350M, Pythia-410M, Pythia-1B conv/analyzed) and Switch-Base-8 (16GB VRAM exceeded) are excluded.
+**96 trained models** across 16 architectures, all publicly available. Each model is trained in three BWSK modes (conventional, bwsk_analyzed, bwsk_reversible) across two experiments (fine-tune, from-scratch).
 
 **Naming convention**: `tzervas/bwsk-{model}-{experiment}-{mode}`
 
