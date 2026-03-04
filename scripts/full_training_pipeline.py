@@ -27,11 +27,17 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import sys
 import time
 import traceback
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
+
+# Reduce CUDA memory fragmentation for large models (Pythia-1B, Switch-Base-8).
+os.environ.setdefault(
+    "PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True"
+)
 
 import torch
 import torch.nn as nn
@@ -152,7 +158,7 @@ def get_training_config(config: ExtendedModelConfig) -> TrainingConfig:
         )
     return TrainingConfig(
         max_epochs=3,
-        grad_accum_steps=8,
+        grad_accum_steps=16,
         val_every_steps=250,
         patience=3,
         lr_finetune=config.finetune_lr,
