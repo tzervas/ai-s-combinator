@@ -35,9 +35,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 # Reduce CUDA memory fragmentation for large models (Pythia-1B, Switch-Base-8).
-os.environ.setdefault(
-    "PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True"
-)
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 import torch
 import torch.nn as nn
@@ -482,9 +480,7 @@ def train_one_run(
     # peak memory.
     model.train()
     use_foreach = config.params_m < 500
-    optimizer = torch.optim.AdamW(
-        model.parameters(), lr=lr, weight_decay=0.01, foreach=use_foreach
-    )
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01, foreach=use_foreach)
 
     # Estimate total steps for cosine schedule
     if config.arch_type == "image_cls" and cifar_module is not None:
@@ -754,6 +750,10 @@ def train_one_run(
     mem = peak_memory_mb()
     epochs_completed = min(epoch + 1, train_config.max_epochs) if "epoch" in dir() else 0
 
+    # Free training model before test eval to avoid OOM on large models.
+    del model
+    cleanup_gpu_memory()
+
     # --- Test evaluation with best model ---
     test_metric = 0.0
     if best_model_path.exists():
@@ -798,10 +798,6 @@ def train_one_run(
     else:
         # Use last model's validation metric as proxy
         test_metric = best_metric
-
-    # Cleanup
-    del model
-    cleanup_gpu_memory()
 
     return TrainRunResult(
         model_slug=config.slug,
@@ -1075,10 +1071,11 @@ def _upload_model_results(
     config: ExtendedModelConfig,
     result: ModelFullResult,
 ) -> None:
-    """Upload training results to HuggingFace.
+    """Upload training results to consolidated HuggingFace repo.
 
-    Creates one repo per trained model variant and one results repo
-    with all comparison data.
+    Uploads all variants into a single repo (tzervas/bwsk-{slug}) with
+    subdirectories for each experiment/mode combination. Generates and
+    uploads a consolidated README.md model card.
 
     Args:
         config: Model configuration.
@@ -1092,52 +1089,79 @@ def _upload_model_results(
         print("  WARNING: huggingface_hub not installed, skipping upload")
         return
 
-    print("\n  Uploading to HuggingFace...")
+    # Import here to avoid circular dependency at module level.
+    from generate_model_cards import (
+        VARIANT_DIRS,
+        generate_consolidated_card,
+        load_aggregated_results,
+    )
+
+    repo_id = f"tzervas/bwsk-{config.slug}"
+    print(f"\n  Uploading to HuggingFace: {repo_id}")
+
+    try:
+        api.create_repo(repo_id, exist_ok=True)
+    except Exception as e:
+        print(f"    WARNING: Could not create repo {repo_id}: {e}")
+        return
 
     for run in result.runs:
-        repo_id = f"tzervas/bwsk-{config.slug}-{run.experiment}-{run.mode}"
+        variant_dir = VARIANT_DIRS[(run.experiment, run.mode)]
         try:
-            # Upload best model if it exists
+            # Upload best model into variant subdirectory
             best_path = CHECKPOINT_DIR / config.slug / run.experiment / run.mode / "best_model"
             if best_path.exists():
-                api.create_repo(repo_id, exist_ok=True)
                 api.upload_folder(
                     folder_path=str(best_path),
+                    path_in_repo=variant_dir,
                     repo_id=repo_id,
                     commit_message=(
-                        f"BWSK {run.experiment} {run.mode}: "
-                        f"{run.metric_name}={run.best_val_metric:.4f}"
+                        f"Add {variant_dir}: {run.metric_name}={run.best_val_metric:.4f}"
                     ),
                 )
-                print(f"    Uploaded: {repo_id}")
+                print(f"    Uploaded: {variant_dir}/")
 
-            # Upload run result JSON
+            # Upload per-run result JSON into variant subdirectory
             run_json = RESULTS_DIR / f"fulltrain_{config.slug}_{run.experiment}_{run.mode}.json"
             if run_json.exists():
                 api.upload_file(
                     path_or_fileobj=str(run_json),
-                    path_in_repo="training_results.json",
+                    path_in_repo=f"{variant_dir}/training_results.json",
                     repo_id=repo_id,
-                    commit_message="Add training results",
+                    commit_message=f"Add {variant_dir} training results",
                 )
         except Exception as e:
-            print(f"    WARNING: Upload failed for {repo_id}: {e}")
+            print(f"    WARNING: Upload failed for {variant_dir}: {e}")
 
-    # Upload combined results
-    results_repo = f"tzervas/bwsk-{config.slug}-full-training-results"
+    # Upload aggregated results.json at root
     try:
         model_json = RESULTS_DIR / f"fulltrain_{config.slug}_results.json"
         if model_json.exists():
-            api.create_repo(results_repo, exist_ok=True)
             api.upload_file(
                 path_or_fileobj=str(model_json),
                 path_in_repo="results.json",
-                repo_id=results_repo,
-                commit_message="Full training comparison results",
+                repo_id=repo_id,
+                commit_message="Add aggregated training results",
             )
-            print(f"    Uploaded results: {results_repo}")
+            print("    Uploaded: results.json")
     except Exception as e:
         print(f"    WARNING: Results upload failed: {e}")
+
+    # Generate and upload consolidated README.md
+    try:
+        all_results = load_aggregated_results()
+        agg = all_results.get(config.slug)
+        if agg:
+            card = generate_consolidated_card(agg)
+            api.upload_file(
+                path_or_fileobj=card.encode("utf-8"),
+                path_in_repo="README.md",
+                repo_id=repo_id,
+                commit_message="Add consolidated BWSK model card",
+            )
+            print("    Uploaded: README.md")
+    except Exception as e:
+        print(f"    WARNING: README upload failed: {e}")
 
 
 # ---------------------------------------------------------------------------

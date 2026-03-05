@@ -9,13 +9,13 @@ A framework that uses combinator logic (B, W, S, K) as a **typed architectural d
 Every neural network operation is either **information-preserving** (S-type) or **information-erasing** (K-type). Making this boundary explicit gives you:
 
 - **Automatic provenance** — trace predictions back through S-phases without SHAP/LIME
-- **Memory reduction** — S-phases are reversible, no activation storage needed (up to 44% savings)
+- **Memory reduction** — S-phases are reversible, no activation storage needed (up to 37% in full training)
 - **Coordination-free distribution** — S-phases are monotone (CALM theorem)
 - **Compositionality** — architectures defined as combinator expressions compose by construction
 
 ## Key Results
 
-Validated across **17 models** spanning 5 architecture families on NVIDIA RTX 5080 and RTX 3090 Ti. **96 trained models** (16 architectures x 3 modes x 2 experiments) published to [HuggingFace](#huggingface-models).
+Benchmarked across **17 models** spanning 5 architecture families on NVIDIA RTX 5080 and RTX 3090 Ti. **96 trained models** (16 architectures x 3 modes x 2 experiments) published to [HuggingFace](#huggingface-models).
 
 | Family | Models | S-type Ratio | Memory Savings (Reversible) |
 |--------|--------|-------------|----------------------------|
@@ -64,7 +64,7 @@ print(f"S-type: {summary.s_ratio:.1%}, K-type: {summary.k_ratio:.1%}")
 # BWSK-aware training with reversible backprop
 from bwsk.training import BWSKTrainer
 trainer = BWSKTrainer(model, mode="bwsk_reversible")
-trainer.train(dataloader)  # Up to 44% less VRAM
+trainer.train(dataloader)  # Up to 37% less VRAM in full training
 ```
 
 ## Benchmarks and Training
@@ -119,6 +119,7 @@ scripts/               # Benchmark and training infrastructure
   memory_throughput_profiler.py
   gpu_scheduler.py            # VRAM-aware bin-packing scheduler
   generate_whitepaper_figures.py
+  generate_model_cards.py        # HuggingFace model card generation
 
 docs/
   WHITEPAPER.md        # Full research paper with results
@@ -132,31 +133,28 @@ docs/
 
 ## HuggingFace Models
 
-All trained models are published to HuggingFace under the `tzervas` organization. Each model is trained in three BWSK modes (conventional, bwsk_analyzed, bwsk_reversible) across two experiments (fine-tune, from-scratch).
+**96 trained models** across 16 architectures, all publicly available on HuggingFace under the `tzervas` namespace. Each model is trained in three BWSK modes (conventional, bwsk_analyzed, bwsk_reversible) across two experiments (fine-tune, from-scratch). All 6 variants are consolidated into a single repo per model (16 repos total).
 
-**96 trained models** across 16 architectures, all publicly available. Each model is trained in three BWSK modes (conventional, bwsk_analyzed, bwsk_reversible) across two experiments (fine-tune, from-scratch).
+**Naming convention**: `tzervas/bwsk-{model}` — each repo contains subdirectories like `finetune-conventional/`, `scratch-bwsk-reversible/`, etc.
 
-**Naming convention**: `tzervas/bwsk-{model}-{experiment}-{mode}`
-
-| Model | Family | Params | Fine-tune Models | From-Scratch Models | Results |
-|-------|--------|--------|-----------------|--------------------| --------|
-| Pythia-70M | Transformer | 70M | [conv](https://huggingface.co/tzervas/bwsk-pythia-70m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-70m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-70m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-pythia-70m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-70m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-70m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-pythia-70m-full-training-results) |
-| Pythia-160M | Transformer | 160M | [conv](https://huggingface.co/tzervas/bwsk-pythia-160m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-160m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-160m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-pythia-160m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-160m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-160m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-pythia-160m-full-training-results) |
-| Pythia-410M | Transformer | 410M | [conv](https://huggingface.co/tzervas/bwsk-pythia-410m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-410m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-410m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-pythia-410m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-410m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-410m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-pythia-410m-full-training-results) |
-| Pythia-1B | Transformer | 1B | [conv](https://huggingface.co/tzervas/bwsk-pythia-1b-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-1b-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-1b-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-pythia-1b-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-pythia-1b-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-pythia-1b-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-pythia-1b-full-training-results) |
-| GPT-2 Small | Transformer | 124M | [conv](https://huggingface.co/tzervas/bwsk-gpt2-small-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-gpt2-small-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-gpt2-small-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-gpt2-small-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-gpt2-small-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-gpt2-small-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-gpt2-small-full-training-results) |
-| GPT-2 Medium | Transformer | 345M | [conv](https://huggingface.co/tzervas/bwsk-gpt2-medium-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-gpt2-medium-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-gpt2-medium-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-gpt2-medium-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-gpt2-medium-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-gpt2-medium-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-gpt2-medium-full-training-results) |
-| BERT-base | Transformer | 110M | [conv](https://huggingface.co/tzervas/bwsk-bert-base-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-bert-base-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-bert-base-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-bert-base-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-bert-base-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-bert-base-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-bert-base-full-training-results) |
-| OPT-125M | Transformer | 125M | [conv](https://huggingface.co/tzervas/bwsk-opt-125m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-opt-125m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-opt-125m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-opt-125m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-opt-125m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-opt-125m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-opt-125m-full-training-results) |
-| OPT-350M | Transformer | 331M | [conv](https://huggingface.co/tzervas/bwsk-opt-350m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-opt-350m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-opt-350m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-opt-350m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-opt-350m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-opt-350m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-opt-350m-full-training-results) |
-| T5-small | Transformer | 60M | [conv](https://huggingface.co/tzervas/bwsk-t5-small-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-t5-small-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-t5-small-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-t5-small-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-t5-small-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-t5-small-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-t5-small-full-training-results) |
-| ResNet-50 | CNN | 25M | [conv](https://huggingface.co/tzervas/bwsk-resnet50-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-resnet50-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-resnet50-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-resnet50-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-resnet50-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-resnet50-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-resnet50-full-training-results) |
-| EfficientNet-B0 | CNN | 5M | [conv](https://huggingface.co/tzervas/bwsk-efficientnet-b0-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-efficientnet-b0-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-efficientnet-b0-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-efficientnet-b0-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-efficientnet-b0-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-efficientnet-b0-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-efficientnet-b0-full-training-results) |
-| MobileNetV2 | CNN | 3M | [conv](https://huggingface.co/tzervas/bwsk-mobilenetv2-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-mobilenetv2-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-mobilenetv2-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-mobilenetv2-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-mobilenetv2-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-mobilenetv2-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-mobilenetv2-full-training-results) |
-| ViT-base | Vision Transformer | 86M | [conv](https://huggingface.co/tzervas/bwsk-vit-base-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-vit-base-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-vit-base-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-vit-base-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-vit-base-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-vit-base-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-vit-base-full-training-results) |
-| Mamba-130M | SSM | 130M | [conv](https://huggingface.co/tzervas/bwsk-mamba-130m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-mamba-130m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-mamba-130m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-mamba-130m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-mamba-130m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-mamba-130m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-mamba-130m-full-training-results) |
-| Mamba-370M | SSM | 370M | [conv](https://huggingface.co/tzervas/bwsk-mamba-370m-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-mamba-370m-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-mamba-370m-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-mamba-370m-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-mamba-370m-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-mamba-370m-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-mamba-370m-full-training-results) |
-| Switch-Base-8 | MoE | 220M | [conv](https://huggingface.co/tzervas/bwsk-switch-base-8-finetune-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-switch-base-8-finetune-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-switch-base-8-finetune-bwsk_reversible) | [conv](https://huggingface.co/tzervas/bwsk-switch-base-8-scratch-conventional) / [analyzed](https://huggingface.co/tzervas/bwsk-switch-base-8-scratch-bwsk_analyzed) / [reversible](https://huggingface.co/tzervas/bwsk-switch-base-8-scratch-bwsk_reversible) | [JSON](https://huggingface.co/tzervas/bwsk-switch-base-8-full-training-results) |
+| Model | Family | Params | HuggingFace |
+|-------|--------|--------|-------------|
+| Pythia-70M | Transformer | 70M | [bwsk-pythia-70m](https://huggingface.co/tzervas/bwsk-pythia-70m) |
+| Pythia-160M | Transformer | 160M | [bwsk-pythia-160m](https://huggingface.co/tzervas/bwsk-pythia-160m) |
+| Pythia-410M | Transformer | 410M | [bwsk-pythia-410m](https://huggingface.co/tzervas/bwsk-pythia-410m) |
+| Pythia-1B | Transformer | 1B | [bwsk-pythia-1b](https://huggingface.co/tzervas/bwsk-pythia-1b) |
+| GPT-2 Small | Transformer | 124M | [bwsk-gpt2-small](https://huggingface.co/tzervas/bwsk-gpt2-small) |
+| GPT-2 Medium | Transformer | 345M | [bwsk-gpt2-medium](https://huggingface.co/tzervas/bwsk-gpt2-medium) |
+| BERT-base | Transformer | 110M | [bwsk-bert-base](https://huggingface.co/tzervas/bwsk-bert-base) |
+| OPT-350M | Transformer | 331M | [bwsk-opt-350m](https://huggingface.co/tzervas/bwsk-opt-350m) |
+| T5-small | Transformer | 60M | [bwsk-t5-small](https://huggingface.co/tzervas/bwsk-t5-small) |
+| ResNet-50 | CNN | 25M | [bwsk-resnet50](https://huggingface.co/tzervas/bwsk-resnet50) |
+| EfficientNet-B0 | CNN | 5M | [bwsk-efficientnet-b0](https://huggingface.co/tzervas/bwsk-efficientnet-b0) |
+| MobileNetV2 | CNN | 3M | [bwsk-mobilenetv2](https://huggingface.co/tzervas/bwsk-mobilenetv2) |
+| ViT-base | Vision Transformer | 86M | [bwsk-vit-base](https://huggingface.co/tzervas/bwsk-vit-base) |
+| Mamba-130M | SSM | 130M | [bwsk-mamba-130m](https://huggingface.co/tzervas/bwsk-mamba-130m) |
+| Mamba-370M | SSM | 370M | [bwsk-mamba-370m](https://huggingface.co/tzervas/bwsk-mamba-370m) |
+| Switch-Base-8 | MoE | 220M | [bwsk-switch-base-8](https://huggingface.co/tzervas/bwsk-switch-base-8) |
 
 ## Research Background
 

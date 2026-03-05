@@ -4,7 +4,7 @@
 
 ## Abstract
 
-We present BWSK, a framework that uses combinator logic (B, W, S, K) as a typed architectural description language for neural networks. By classifying every operation as information-preserving (S-type), information-erasing (K-type), or context-dependent (GRAY), BWSK provides compile-time guarantees about information flow, reversibility, and parallelism. We empirically validate across 17 models spanning 5 architecture families: transformers (70M--2.7B parameters), CNNs, Vision Transformers, state-space models (Mamba), and Mixture-of-Experts. Our results show that transformer S-ratios range from 60--89% depending on architecture variant, with the Pythia family maintaining a stable 67% across a 14x scale range (70M--1B). SSM/Mamba architectures achieve the highest S-ratios (86%) with zero K-type operations, while CNNs are predominantly K-type (60--66%). BWSK-reversible training achieves statistically equivalent convergence quality (all p > 0.05, n=36 runs) with memory savings of up to 42% for OPT-350M and 41% for T5-small. CALM parallelism analysis directly correlates with S-type ratio, providing a principled basis for distributed training decisions.
+We present BWSK, a framework that uses combinator logic (B, W, S, K) as a typed architectural description language for neural networks. By classifying every operation as information-preserving (S-type), information-erasing (K-type), or context-dependent (GRAY), BWSK provides compile-time guarantees about information flow, reversibility, and parallelism. We empirically validate across 17 models spanning 5 architecture families: transformers (70M--2.7B parameters), CNNs, Vision Transformers, state-space models (Mamba), and Mixture-of-Experts. Our results show that transformer S-ratios range from 60--89% depending on architecture variant, with the Pythia family maintaining a stable 67% across a 14x scale range (70M--1B). SSM/Mamba architectures achieve the highest S-ratios (86%) with zero K-type operations, while CNNs are predominantly K-type (60--66%). BWSK-reversible training achieves statistically equivalent convergence quality (all p > 0.05, n=36 runs) with activation memory savings of 16--37% in full convergence training (up to 44% in 300-step benchmarks). CALM parallelism analysis directly correlates with S-type ratio, providing a principled basis for distributed training decisions.
 
 ## 1. Introduction
 
@@ -197,7 +197,7 @@ Table 2 presents peak VRAM usage and final loss for each model across three trai
 | EfficientNet-B0 | 2792 | 2792 | 0.0% | 1.650 | 1.851 | +0.201 |
 | MobileNetV2 | 2463 | 2463 | 0.0% | 1.579 | 1.733 | +0.154 |
 
-**H4 (memory savings)**: *Confirmed for S-type-heavy architectures.* Models with S-ratio > 60% achieve 10--64% memory savings in reversible mode. The largest savings occur in models where activation memory dominates: ViT-base (63.5%), GPT-2 Small (44.0%), OPT-350M (42.2%), T5-small (40.6%). CNN and SSM models show negligible savings because their K-type operations (pooling, gating) create natural checkpointing boundaries that PyTorch already exploits. *See Figure 4.*
+**H4 (memory savings)**: *Confirmed for S-type-heavy architectures.* In 300-step benchmarks (Table 2), models with S-ratio > 60% achieve 10--64% memory savings in reversible mode. The largest savings occur in models where activation memory dominates: ViT-base (63.5%), GPT-2 Small (44.0%), OPT-350M (42.2%), T5-small (40.6%). In full convergence training (Section 4.4), savings are lower (16--37%) due to increased gradient accumulation and optimizer state, but the rank order is preserved. CNN and SSM models show negligible savings in both settings because their K-type operations (pooling, gating) create natural checkpointing boundaries that PyTorch already exploits. *See Figure 4.*
 
 ### 4.3 Training Convergence
 
@@ -207,18 +207,18 @@ The convergence experiment (4 models x 3 modes x 3 seeds = 36 runs, 1500 steps e
 
 | Model | Mode | Mean Final Loss | Std Dev | 90% Conv. Step |
 |-------|------|----------------|---------|----------------|
-| GPT-2 Medium | Conventional | 3.103 | 0.027 | 9 |
-| GPT-2 Medium | BWSK-analyzed | 3.103 | 0.025 | 9 |
-| GPT-2 Medium | BWSK-reversible | 3.103 | 0.025 | 9 |
+| GPT-2 Medium | Conventional | 3.103 | 0.033 | 9 |
+| GPT-2 Medium | BWSK-analyzed | 3.103 | 0.031 | 9 |
+| GPT-2 Medium | BWSK-reversible | 3.103 | 0.031 | 9 |
 | Mamba-130M | Conventional | 2.878 | 0.0001 | 24 |
 | Mamba-130M | BWSK-analyzed | 2.878 | 0.0001 | 24 |
 | Mamba-130M | BWSK-reversible | 2.878 | 0.0001 | 24 |
-| Pythia-70M | Conventional | 4.220 | 0.011 | 1 |
-| Pythia-70M | BWSK-analyzed | 4.209 | 0.023 | 1 |
-| Pythia-70M | BWSK-reversible | 4.218 | 0.009 | 1 |
-| ResNet-50 | Conventional | 1.576 | 0.379 | 348 |
-| ResNet-50 | BWSK-analyzed | 1.320 | 0.140 | 563 |
-| ResNet-50 | BWSK-reversible | 1.398 | 0.287 | 443 |
+| Pythia-70M | Conventional | 4.220 | 0.014 | 1 |
+| Pythia-70M | BWSK-analyzed | 4.209 | 0.028 | 1 |
+| Pythia-70M | BWSK-reversible | 4.218 | 0.011 | 1 |
+| ResNet-50 | Conventional | 1.576 | 0.464 | 348 |
+| ResNet-50 | BWSK-analyzed | 1.320 | 0.171 | 563 |
+| ResNet-50 | BWSK-reversible | 1.398 | 0.352 | 443 |
 
 **Table 4: Pairwise Statistical Tests (Conventional vs. BWSK-Reversible)**
 
@@ -345,10 +345,13 @@ To validate that the 300-step benchmark results hold at training convergence, we
 
 \* Pythia-1B: gradient checkpointing enabled; reversible mode uses same VRAM as conventional at this scale due to checkpointing already covering all layers.
 
+† OPT-350M, Pythia-410M, and Switch-Base-8 report validation-set metrics (best checkpoint) rather than held-out test metrics. Pythia-1B test evaluation failed due to CUDA OOM; validation metrics shown instead.
+
 **Table 9: Full From-Scratch Results (Epoch-Based)**
 
 | Model | Type | Conv. | Analyzed | Reversible | Epochs | Mode Delta |
 |-------|------|-------|----------|------------|--------|------------|
+| BERT-base | PPL | 1489.18 | 1480.62 | 1503.86 | --- | <1.6% |
 | Pythia-70M | PPL | 201.6 | 215.3 | 194.3 | 6 | <10.8% |
 | Pythia-160M | PPL | 228.3 | 229.0 | 219.8 | 5 | <4.2% |
 | Pythia-410M | PPL | 202.8 | 213.5 | 198.3 | 5 | <7.7% |
@@ -365,7 +368,9 @@ To validate that the 300-step benchmark results hold at training convergence, we
 | ViT-base | Acc | 0.375 | 0.369 | 0.378 | 1-2 | <2.4% |
 | Switch-Base-8 | PPL | 289.3 | 288.7 | 297.7 | 5 | <3.1% |
 
-The full convergence results largely confirm the statistical equivalence finding from the 1500-step convergence experiment (Section 4.3). For fine-tuning, language models consistently show <1% mode delta across all three BWSK modes, with the largest transformer delta being BERT-base at 3.2%. Memory savings in full training mirror the 300-step results: transformers achieve 16--37% savings in reversible mode, while CNNs and SSMs show no savings due to fragmented or GRAY-interrupted S-phases.
+† OPT-350M, Pythia-410M, and Switch-Base-8 report validation-set metrics (best checkpoint) rather than held-out test metrics. Pythia-1B test evaluation failed due to CUDA OOM; validation metrics shown instead.
+
+The full convergence results largely confirm the statistical equivalence finding from the 1500-step convergence experiment (Section 4.3). For fine-tuning, language models consistently show <1% mode delta across all three BWSK modes, with the largest transformer delta being BERT-base at 3.2%. Memory savings in full training are directionally consistent with the 300-step results but lower in magnitude: transformers achieve 16--37% savings in reversible mode (vs 10--44% in 300-step benchmarks), while CNNs and SSMs show no savings in either setting due to fragmented or GRAY-interrupted S-phases. The reduction is attributable to increased gradient accumulation (16 vs 8 microbatches) and optimizer state overhead, which are fixed costs unaffected by activation checkpointing.
 
 Two notable findings emerge from full training:
 1. **From-scratch Mamba diverges between modes**: Mamba-130M shows 47% mode delta from scratch (conventional: 453 PPL vs reversible: 666 PPL), suggesting that gradient checkpointing interacts poorly with Mamba's selective scan during early random-weight training. Fine-tuning shows no such effect (<0.2% delta).
@@ -426,7 +431,7 @@ This suggests that the *topology* of S/K boundaries matters as much as the *rati
 
 ### 5.6 Practical Implications
 
-**Memory optimization**: For transformer models, BWSK-reversible training provides 30--44% memory savings for models in the 60M--400M range, with the highest savings for OPT-350M (42.2%) and GPT-2 Small (44.0%). This enables training larger batch sizes or longer sequences on the same hardware.
+**Memory optimization**: In 300-step benchmarks, BWSK-reversible training provides 30--44% memory savings for transformer models in the 60M--400M range (Table 2). In full convergence training (Section 4.4), savings are 16--37% due to increased gradient accumulation and optimizer state overhead at longer training horizons. The highest full-training savings occur for ViT-base (37.3%), GPT-2 Small (36.8%), and T5-small (36.4%).
 
 **Distributed training**: CALM analysis identifies SSM/Mamba and OPT-style transformers as the best candidates for coordination-free distributed training. CNNs require frequent synchronization, explaining why CNN training scales less efficiently across GPUs.
 
@@ -456,7 +461,7 @@ We have demonstrated that the BWSK combinator framework provides a practical, ty
 
 2. **SSM/Mamba represents a novel information-processing paradigm** with 86% S-type operations and zero K-type, achieving non-linearity through gating (GRAY) rather than erasure (K).
 
-3. **BWSK-reversible training achieves statistically equivalent convergence** (all p > 0.05 across 36 runs) with memory savings of up to 44% for transformers, enabling larger models on fixed hardware budgets.
+3. **BWSK-reversible training achieves statistically equivalent convergence** (all p > 0.05 across 36 runs) with memory savings of 16--37% in full training (up to 44% in 300-step benchmarks), enabling larger models on fixed hardware budgets.
 
 4. **CALM parallelism analysis** provides a principled basis for distributed training decisions, identifying Mamba and OPT-style transformers as optimal candidates for coordination-free execution.
 

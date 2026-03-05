@@ -220,8 +220,6 @@ in **{mode}** training mode.
 ## Training Configuration
 
 - **Base model**: {base_model}
-- **Dataset**: WikiText-2 / CIFAR-10
-- **Steps**: 300
 - **Optimizer**: AdamW
 - **Mode**: {mode}
 

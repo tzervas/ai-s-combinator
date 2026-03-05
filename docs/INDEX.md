@@ -4,7 +4,7 @@
 > It must be kept current. When you create, rename, or delete a doc, update this index.
 > When you significantly change a doc's scope, update its description here.
 
-Last updated: 2026-03-01
+Last updated: 2026-03-04
 
 ---
 
@@ -41,11 +41,11 @@ Last updated: 2026-03-01
 
 | File | Title | Phase | Status | Depends On | Key Contents |
 |------|-------|-------|--------|------------|--------------|
-| `SPEC_001_sk_classifier.md` | S/K Operation Classifier | 1 | **Implementing** | None | Classification database (70+ ops), algorithm pseudocode, edge cases, output format, test plan |
-| `SPEC_002_bwsk_primitives.md` | BWSK Primitive Implementations | 1-2 | Spec ready | SPEC-001 | B/W/S/K combinator rules, nn.Module wrapping, composition |
-| `SPEC_003_provenance.md` | Provenance Tracking System | 2 | Spec ready | SPEC-001, SPEC-002 | ProvenanceNode/Graph dataclasses, tracker hooks, output formats |
-| `SPEC_004_architecture_dsl.md` | Architecture DSL | 2 | Spec ready | SPEC-002 | `>>` operator, shape validation, compile to nn.Module |
-| `SPEC_005_rust_port.md` | Rust Port Strategy | 4 | Spec ready | SPEC-001..004 | bwsk-core + bwsk-burn crate structure, cross-validation |
+| `SPEC_001_sk_classifier.md` | S/K Operation Classifier | 1 | **Complete** | None | Classification database (70+ ops), algorithm pseudocode, edge cases, output format, test plan |
+| `SPEC_002_bwsk_primitives.md` | BWSK Primitive Implementations | 1-2 | **Complete** | SPEC-001 | B/W/S/K combinator rules, nn.Module wrapping, composition |
+| `SPEC_003_provenance.md` | Provenance Tracking System | 2 | **Complete** | SPEC-001, SPEC-002 | ProvenanceNode/Graph dataclasses, tracker hooks, output formats |
+| `SPEC_004_architecture_dsl.md` | Architecture DSL | 2 | **Complete** | SPEC-002 | `>>` operator, shape validation, compile to nn.Module |
+| `SPEC_005_rust_port.md` | Rust Port Strategy | 4 | **Complete** | SPEC-001..004 | bwsk-core + bwsk-burn crate structure, cross-validation |
 
 ---
 
@@ -53,21 +53,21 @@ Last updated: 2026-03-01
 
 | File | Story | Phase | Status | Spec | Key Acceptance Criteria |
 |------|-------|-------|--------|------|------------------------|
-| `US_01_classifier_cli.md` | Classify Model via CLI | 1 | **Partially met** | SPEC-001 | CLI, JSON schema, programmatic API, error handling |
-| `US_02_compare_architectures.md` | Compare Architecture Erasure Budgets | 1 | Not started | SPEC-001 | Side-by-side comparison, `bwsk compare` command |
-| `US_03_compliance_audit.md` | Audit K-Boundaries for Compliance | 1 | Not started | SPEC-001 | Compliance document format, `bwsk audit` command |
-| `US_04_dsl_transformer.md` | Define Transformer Block in DSL | 2 | Not started | SPEC-002, SPEC-004 | DSL syntax, shape validation |
-| `US_05_composable_modules.md` | Compose Modules with Type-Checked Shapes | 2 | Not started | SPEC-004 | `>>` operator, shape mismatch errors |
-| `US_06_weight_sharing.md` | Express Weight Sharing with W | 2 | Not started | SPEC-002 | `W(block, depth=N)`, parameter tying |
-| `US_07_provenance_trace.md` | Trace Predictions Through S-Phases | 2 | Not started | SPEC-003 | Forward hooks, S-phase tracing |
-| `US_08_erasure_hotspots.md` | Identify Erasure Hotspots | 1-2 | Not started | SPEC-001, SPEC-003 | Ranked K-operations, S-type alternatives |
-| `US_09_regulatory_audit_trail.md` | Regulatory Audit Trail | 2 | Not started | SPEC-003 | HTML/PDF provenance export |
-| `US_10_memory_reduction.md` | Reduce Activation Memory | 3 | Not started | SPEC-004 | S-phase reversible backprop, 50%+ memory reduction |
-| `US_11_training_comparison.md` | Compare Training Memory Strategies | 3 | Not started | SPEC-004 | Benchmark vs standard/checkpointing/RevNet |
-| `US_12_calm_distributed.md` | CALM-Monotone Distributed Training | 3 | Not started | SPEC-004 | CRDT gradient accumulator, staleness parameter |
-| `US_13_calm_convergence.md` | CALM Convergence Analysis | 3 | Not started | SPEC-004 | Loss landscape, sharpness metrics |
-| `US_14_rust_bwsk.md` | Define Architecture in Rust | 4 | Not started | SPEC-005 | Rust BWSK API, Burn modules, CubeCL |
-| `US_15_single_binary.md` | Deploy as Single Binary | 4 | Not started | SPEC-005 | <50MB binary, <100ms startup |
+| `US_01_classifier_cli.md` | Classify Model via CLI | 1 | **API complete** | SPEC-001 | CLI, JSON schema, programmatic API, error handling |
+| `US_02_compare_architectures.md` | Compare Architecture Erasure Budgets | 1 | **API complete** | SPEC-001 | Side-by-side comparison, `bwsk compare` command |
+| `US_03_compliance_audit.md` | Audit K-Boundaries for Compliance | 1 | **API complete** | SPEC-001 | Compliance document format, `bwsk audit` command |
+| `US_04_dsl_transformer.md` | Define Transformer Block in DSL | 2 | **Complete** | SPEC-002, SPEC-004 | DSL syntax, shape validation |
+| `US_05_composable_modules.md` | Compose Modules with Type-Checked Shapes | 2 | **Complete** | SPEC-004 | `>>` operator, shape mismatch errors |
+| `US_06_weight_sharing.md` | Express Weight Sharing with W | 2 | **Complete** | SPEC-002 | `W(block, depth=N)`, parameter tying |
+| `US_07_provenance_trace.md` | Trace Predictions Through S-Phases | 2 | **Complete** | SPEC-003 | Forward hooks, S-phase tracing |
+| `US_08_erasure_hotspots.md` | Identify Erasure Hotspots | 1-2 | **Complete** | SPEC-001, SPEC-003 | Ranked K-operations, S-type alternatives |
+| `US_09_regulatory_audit_trail.md` | Regulatory Audit Trail | 2 | Partial | SPEC-003 | HTML/PDF provenance export |
+| `US_10_memory_reduction.md` | Reduce Activation Memory | 3 | **Complete** | SPEC-004 | S-phase reversible backprop, 16-37% memory reduction |
+| `US_11_training_comparison.md` | Compare Training Memory Strategies | 3 | **Complete** | SPEC-004 | Benchmark vs standard/checkpointing/RevNet |
+| `US_12_calm_distributed.md` | CALM-Monotone Distributed Training | 3 | **Analysis complete** | SPEC-004 | CALM analysis and partitioning implemented |
+| `US_13_calm_convergence.md` | CALM Convergence Analysis | 3 | **Complete** | SPEC-004 | Loss landscape, sharpness metrics |
+| `US_14_rust_bwsk.md` | Define Architecture in Rust | 4 | **Complete** | SPEC-005 | Rust BWSK API, Burn modules, CubeCL |
+| `US_15_single_binary.md` | Deploy as Single Binary | 4 | Partial | SPEC-005 | <50MB binary, <100ms startup |
 
 ---
 
@@ -153,6 +153,8 @@ Last updated: 2026-03-01
 | `gpu_scheduler.py` | VRAM-aware GPU task scheduler with bin-packing | CLI: `--schedule-only`, `--calibrate`, `--all` |
 | `full_training_pipeline.py` | Full convergence training: epoch-based, early stopping, HF upload, cleanup | CLI: `--models`, `--experiment`, `--resume`, `--dry-run` |
 | `training_utils.py` | Shared training infrastructure: datasets, early stopper, checkpoints, cleanup | Used by full_training_pipeline.py |
+| `generate_model_cards.py` | Generate and upload HuggingFace model cards (consolidated or legacy) | CLI: `--dry-run`, `--preview`, `--slug`, `--type` |
+| `consolidate_hf_repos.py` | Migrated 112 legacy HF repos into 16 consolidated repos (one per model) | CLI: `--dry-run`, `--slug`, `--no-delete`, `--delete-only` |
 
 ## Tests (`tests/`)
 
