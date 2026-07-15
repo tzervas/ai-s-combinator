@@ -24,7 +24,7 @@ dev = [
     "pip-audit>=2.7",
 ]
 benchmark = [
-    "transformers>=4.30",
+    "transformers>=5.5.0",
     "datasets>=2.14",
     "accelerate>=0.20",
     "tqdm>=4.64",
