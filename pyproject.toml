@@ -14,7 +14,7 @@ dependencies = [
 
 [project.optional-dependencies]
 torch = [
-    "torch>=2.0",
+    "torch>=2.13.0",
 ]
 dev = [
     "pytest>=9.0.3",
