@@ -1,20 +1,18 @@
 ## Summary
 
-<!-- 1-3 bullet points describing what this PR does -->
+<!-- What changed and why -->
 
-## Spec Reference
+## Branch tier
 
-<!-- Link to relevant spec in docs/specs/ if applicable -->
-
-## Test Plan
-
-- [ ] New tests added
-- [ ] `just ci` passes
-- [ ] No security scan findings
+- [ ] Targets **`dev`** (or feature base) — use **`Refs #n`** / **`Related to #n`** only (do **not** use `Closes`/`Fixes` — issues stay open until main)
+- [ ] Targets **`main`** — use **`Closes #n`** / **`Fixes #n`** for completed work; epics only when fully delivered
 
 ## Checklist
 
-- [ ] Code follows project conventions (ruff, type hints)
-- [ ] Tests cover new functionality
-- [ ] Documentation updated if needed
-- [ ] GPG-signed commits
+- [ ] Local gates green (`local-ci` / `cargo test` / `pytest` as applicable)
+- [ ] No secrets in diff
+- [ ] **Do not** request automatic Copilot code review
+
+## Linked work
+
+<!-- Refs #123  or  Closes #123 (main only) -->

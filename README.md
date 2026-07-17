@@ -1,5 +1,10 @@
 # BWSK: Combinator-Typed AI Primitives
 
+<!-- FLEET-BADGES:BEGIN -->
+[![CI](https://github.com/tzervas/ai-s-combinator/actions/workflows/fleet-ci.yml/badge.svg?branch=main)](https://github.com/tzervas/ai-s-combinator/actions/workflows/fleet-ci.yml?query=branch%3Amain)
+[![Security](https://github.com/tzervas/ai-s-combinator/actions/workflows/fleet-security.yml/badge.svg?branch=main)](https://github.com/tzervas/ai-s-combinator/actions/workflows/fleet-security.yml?query=branch%3Amain)
+<!-- FLEET-BADGES:END -->
+
 A framework that uses combinator logic (B, W, S, K) as a **typed architectural description language** for neural networks. Combinators describe the architecture; tensors compute the results.
 
 **Paper**: [docs/WHITEPAPER.md](docs/WHITEPAPER.md) | **Results**: [docs/FULL_TRAINING_REPORT.md](docs/FULL_TRAINING_REPORT.md) | **Trained Models**: [HuggingFace Collection](#huggingface-models)
